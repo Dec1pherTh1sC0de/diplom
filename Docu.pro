@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    metodclass.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    metodclass.h
 
 FORMS += \
     mainwindow.ui

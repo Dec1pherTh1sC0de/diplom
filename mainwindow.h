@@ -11,11 +11,10 @@
 #include <QSqlError>
 #include <QSqlTableModel>
 
-//Библиотека для работы с кнопками
-#include <QPushButton>
+#include <QMouseEvent>
 
-//Библиотека для работы с LineEdit
-#include <QLineEdit>
+//Класс с функционалом
+#include <metodclass.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,15 +24,15 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-//Создаем методы и объявляем переменные для перетаскивания окна мышкой
+//Объявляем методы и переменные для перетаскивания окна мышкой
 //--------------------------------------------
-protected:
-    void mouseMoveEvent(QMouseEvent* event);
-    void mousePressEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent* event);
-private:
-    QPoint mLastMousePosition;
-    bool mMoving;
+public:
+     void mouseMoveEvent(QMouseEvent* event);
+     void mousePressEvent(QMouseEvent* event);
+     void mouseReleaseEvent(QMouseEvent* event);
+public:
+     QPoint mLastMousePosition;
+     bool mMoving;
 //--------------------------------------------
 
 public:
@@ -43,22 +42,22 @@ public:
 public:
     Ui::MainWindow *ui;
 
-    //Стиль кнопок
-    void styleButton(QPushButton* button);
-
-    //Стиль кнопки с картинкой внутри
-    void styleTransparentButton(QPushButton* button, const QString &str);
-
-    //Стиль LineEdit
-    void styleLineEdit(QLineEdit* lineEdit);
+    //Переменная для работы с калассом metodClass
+    metodClass *mtdcls;
 
     //Создаем и подключаем объекты для работы с БД
     QSqlDatabase sdb;
     QSqlQuery *query;
     QSqlTableModel *model;
+
 private slots:
 
     void on_ConnectBDButton_clicked();
     void on_EnterPinCodePushButton_clicked();
+    void on_ConnectWidgetButton_clicked();
+    void on_GoToAutorizationWidget_clicked();
+    void on_CloseButton_clicked();
+    void on_CloseButton_3_clicked();
+    void on_CloseButton_4_clicked();
 };
 #endif // MAINWINDOW_H

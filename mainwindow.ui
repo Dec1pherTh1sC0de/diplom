@@ -123,6 +123,32 @@
       <string>Авторизация</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="ConnectWidgetButton">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="CloseButton_3">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="PinCodeWidget" native="true">
     <property name="geometry">
@@ -203,10 +229,10 @@
       <string>Введите пин код</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="ClosePinButton">
+    <widget class="QPushButton" name="CloseButton">
      <property name="geometry">
       <rect>
-       <x>277</x>
+       <x>290</x>
        <y>0</y>
        <width>51</width>
        <height>48</height>
@@ -384,6 +410,32 @@
      </property>
      <property name="text">
       <string>Пароль:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="CloseButton_4">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="GoToAutorizationWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
      </property>
     </widget>
    </widget>
