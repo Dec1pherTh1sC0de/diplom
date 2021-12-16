@@ -9,13 +9,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    encryptionclass.cpp \
     main.cpp \
     mainwindow.cpp \
-    metodclass.cpp
+    metodclass.cpp \
+    minidb.cpp
 
 HEADERS += \
+    encryptionclass.h \
     mainwindow.h \
-    metodclass.h
+    metodclass.h \
+    minidb.h
 
 FORMS += \
     mainwindow.ui

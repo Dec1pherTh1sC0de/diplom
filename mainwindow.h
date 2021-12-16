@@ -13,8 +13,10 @@
 
 #include <QMouseEvent>
 
-//Класс с функционалом
+//Классы с функционалом
 #include <metodclass.h>
+#include <encryptionclass.h>
+#include <minidb.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -42,8 +44,11 @@ public:
 public:
     Ui::MainWindow *ui;
 
-    //Переменная для работы с калассом metodClass
+    //Переменная для работы с калассами
     metodClass *mtdcls;
+    encryptionClass *encryptcls;
+    miniDB *mindb;
+
 
     //Создаем и подключаем объекты для работы с БД
     QSqlDatabase sdb;
@@ -59,5 +64,6 @@ private slots:
     void on_CloseButton_clicked();
     void on_CloseButton_3_clicked();
     void on_CloseButton_4_clicked();
+    void on_EnterPushButton_clicked();
 };
 #endif // MAINWINDOW_H

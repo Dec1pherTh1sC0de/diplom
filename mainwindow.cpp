@@ -20,99 +20,23 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//--------Подключение к базе на сервере------------------------------------
-    //Подключение к базе данных
-    QString dbName = "student";//название базы данных
-    QString host = "127.0.0.1:3306";//название хоста
-    QString usr = "root";//имя пользователя
-    QString pwd = "password";//пароль
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(dbName);
-    db.setHostName(host);
-    db.setUserName(usr);
-    db.setPassword(pwd);
-    if (!db.open())
-       {
-           qDebug() << "Что-то пошло не так!"; //Oповещение о неудаче
-       }
-       else
-       {
-           qDebug() << "Успех"; //Оповещение о успехе подключения
-       }
-//------------------------------------------------------------------------
 
-//-----------Задание первоначальных параметров окна------------------------
-    //Изменение размеров окна
-    resize(341,241);
+//Задание стиля окна
+mtdcls->styleWindows(this,341,241);
 
-    //Скругление краев окна
-    mtdcls->skryglenie(this);
+//Задане стиля PinCodeWidget
+mtdcls->stylePincodeWidget(this->ui->PinCodeWidget,this->ui->EnterPinCodePushButton,this->ui->CloseButton,this->ui->PinCodeLineEdit);
 
-    //Установка цвета окна
-    this->setStyleSheet("background-color: #393E46;");
+//Задане стилей AutorizationWidget
+mtdcls->styleAutorizationWidget(this->ui->AutorizationWidget,this->ui->EnterPushButton,this->ui->LoginLineEdit,this->ui->PasswordLineEdit,this->ui->CloseButton_3,this->ui->ConnectWidgetButton);
 
-    //Запрет на изменение размеров окна и установка дефолтных размеров
-    this->setFixedSize(QSize(341, 241));
+//Задане стилей ConnectionWidget
+mtdcls->styleConnectionWidget(this->ui->ConnectionWidget,this->ui->ConnectBDButton,this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit,this->ui->CloseButton_4,this->ui->GoToAutorizationWidget);
 
-    //Скрывает заголовок окна
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-
-    //Размещение окна по центру при запуске
-    mtdcls->centerScreen(this);
-
-//---------------------------------------------------------------------------
-
-//----------Задане стилей PinCodeWidget-------------------------------------
-    this->ui->PinCodeWidget->setGeometry(0,0,341,241);
-
-    //Изменения стиля кнопки входа
-    mtdcls->styleButton(this->ui->EnterPinCodePushButton);
-
-    //Изменение стилей LineEdit
-    mtdcls->styleLineEdit(this->ui->PinCodeLineEdit);
-
-    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
-    mtdcls->styleTransparentButton(this->ui->CloseButton, "icon/window-close-2.ico");
-//--------------------------------------------------------------------------
-
-//----------Задане стилей AutorizationWidget-------------------------------------
-     this->ui->AutorizationWidget->setGeometry(0,0,341,241);
-
-     //Изменения стиля кнопки входа
-     mtdcls->styleButton(this->ui->EnterPushButton);
-
-     //Изменение стилей LineEdit
-     mtdcls->styleLineEdit(this->ui->LoginLineEdit);
-     mtdcls->styleLineEdit(this->ui->PasswordLineEdit);
-
-     //Скрытие виджеа автороизации
-     this->ui->AutorizationWidget->hide();
-     //Применение стиля кнопки закратия, а так же передача пути картинки в метод
-     mtdcls->styleTransparentButton(this->ui->CloseButton_3, "icon/window-close-2.ico");
-     mtdcls->styleTransparentButton(this->ui->ConnectWidgetButton, "icon/db.ico");
-//--------------------------------------------------------------------------
-
-//----------Задане стилей ConnectionWidget-------------------------------------
-     this->ui->ConnectionWidget->setGeometry(0,0,341,241);
-
-     //Изменения стиля кнопки входа
-     mtdcls->styleButton(this->ui->ConnectBDButton);
-
-     //Изменение стилей LineEdit
-     mtdcls->styleLineEdit(this->ui->BDNameEdit);
-     mtdcls->styleLineEdit(this->ui->HostEdit);
-     mtdcls->styleLineEdit(this->ui->UserNameEdit);
-     mtdcls->styleLineEdit(this->ui->PasswEdit);
-
-     //Скрытие виджеа подключения
-     this->ui->ConnectionWidget->hide();
-     //Применение стиля кнопки закратия, а так же передача пути картинки в метод
-     mtdcls->styleTransparentButton(this->ui->CloseButton_4, "icon/window-close-2.ico");
-     mtdcls->styleTransparentButton(this->ui->GoToAutorizationWidget, "icon/arrow-left.ico");
-//--------------------------------------------------------------------------
+//Скрытие виджетов
+this->ui->AutorizationWidget->hide();
+this->ui->ConnectionWidget->hide();
 }
-
-
 
 MainWindow::~MainWindow()
 {
@@ -152,11 +76,15 @@ void MainWindow::on_ConnectBDButton_clicked()
 {
     //Скрытие виджета подключения
     this->ui->ConnectionWidget->hide();
+    this->ui->AutorizationWidget->show();
 }
 
 //Проверка пинкода для открытия авторизации
 void MainWindow::on_EnterPinCodePushButton_clicked()
 {
+    //Подключение к мини БД
+    mindb->ccMiniDB();
+
     this->ui->PinCodeWidget->hide();
     this->ui->AutorizationWidget->show();
 }
@@ -194,5 +122,28 @@ void MainWindow::on_CloseButton_4_clicked()
 {
     //Вызов метода закрытия окна
     mtdcls->closeEvent(this);
+}
+
+//Вход в программу
+void MainWindow::on_EnterPushButton_clicked()
+{
+    //Подключаем БД
+    mindb->database(this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit);
+
+    //Отображение таблицы
+    model = new QSqlTableModel(this,sdb);
+    model->setTable("oblast");
+    model->select();
+    ui->tableView->setModel(model);
+
+    //Задание стиля окна
+    mtdcls->styleWindows(this,800,600);
+
+    //Задание стиля таблицы
+    mtdcls->styleTableView(this->ui->tableView);
+
+    //Скрытие виджетов входа
+    mtdcls->enterWidgetHide(this->ui->PinCodeWidget, this->ui->AutorizationWidget, this->ui->ConnectionWidget);
+
 }
 

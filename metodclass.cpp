@@ -74,3 +74,93 @@ void metodClass::closeEvent(QMainWindow *window)
         QApplication::quit();
     }
 }
+
+//Метод для задания параметров окна
+void metodClass::styleWindows(QMainWindow *window, qint32 x,  qint32 y)
+{
+        //Изменение размеров окна
+        window->resize(x,y);
+
+        //Скругление краев окна
+        skryglenie(window);
+
+        //Установка цвета окна
+        window->setStyleSheet("background-color: #393E46;");
+
+        //Запрет на изменение размеров окна и установка дефолтных размеров
+        //window->setFixedSize(QSize(x, y));
+
+        //Скрывает заголовок окна
+        window->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+
+        //Размещение окна по центру при запуске
+        centerScreen(window);
+}
+
+//Метод для задания стиля виджета пинкода
+void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QLineEdit *lnedit)
+{
+    window->setGeometry(0,0,341,241);
+
+    //Изменения стиля кнопки входа
+    styleButton(btn);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(lnedit);
+
+    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
+    styleTransparentButton(transp, "icon/window-close-2.ico");
+}
+
+//Метод для задания стиля виджета авторизации
+void metodClass::styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct)
+{
+    window->setGeometry(0,0,341,241);
+
+    //Изменения стиля кнопки входа
+    styleButton(enter);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(login);
+    styleLineEdit(password);
+
+    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
+    styleTransparentButton(close, "icon/window-close-2.ico");
+    styleTransparentButton(connct, "icon/db.ico");
+}
+
+//Метод для задания стиля виджета подключения
+void metodClass::styleConnectionWidget(QWidget *window, QPushButton *connect, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut)
+{
+    window->setGeometry(0,0,341,241);
+
+    //Изменения стиля кнопки входа
+    styleButton(connect);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(Bdname);
+    styleLineEdit(host);
+    styleLineEdit(user);
+    styleLineEdit(pass);
+
+    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
+    styleTransparentButton(close, "icon/window-close-2.ico");
+    styleTransparentButton(goToAut, "icon/arrow-left.ico");
+}
+
+//Скрытие виджетов входа
+void metodClass::enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con)
+{
+   pin->hide();
+   aut->hide();
+   con->hide();
+}
+
+//Стиль tableView
+void metodClass::styleTableView(QTableView *table)
+{
+    table->setGeometry(0,0,400,400);
+
+    //Установка цвета таблицы
+    table->setStyleSheet("background-color: #FFFFFF;");
+}
