@@ -6,23 +6,29 @@
 #include <QWidget>
 
 //Библиотеки для работы с шифрованием
-#include <iostream>
-#include <vector>
 #include <QLineEdit>
+
+//Библиотека для работы с SQL
+#include<QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlTableModel>
+#include <QtSql>
 
 class encryptionClass
 {
 public:
     encryptionClass();
 
-    //Зашифровка
-    void encryptText(QLineEdit *encr);
+    //Создаем и подключаем объекты для работы с бд
+    QSqlDatabase sdb;
+    QSqlQuery *query;
+    QSqlTableModel *model;
 
-    //Расшифровка
-    void decryptText(QLineEdit *decr);
+    //Кодирование строки
+    QString stringEncrypt(QString strInput, QString strPassword);
 
-    //Переменная принимающая значения
-    QString strTxt;
+    // Декодирование строки
+    QString stringDecrypt(QString strInput, QString strPassword);
 };
 
 #endif // ENCRYPTIONCLASS_H

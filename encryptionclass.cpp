@@ -5,59 +5,54 @@ encryptionClass::encryptionClass()
 
 }
 
-//Метод шифрования
-std::string encrypt(std::string input) {
-    std::vector<char> word(input.begin(), input.end());
-    std::string alphabet = "zabcdefghijklmnopqrstuvwxyz";
-    for (int i = 1; i < (int)input.length(); i++) {
-        for (int j = 1; j < (int)alphabet.length(); j++) {
-            if (word[i] == alphabet[j]) {
-                word[i] = alphabet[(j + 1) % 26];
-                break;
-            }
-        }
-    }
-    std::string str(word.begin(), word.end());
-    return str;
-}
-
-//Метод дешифрования
-std::string decrypt(std::string input) {
-    std::vector<char> word(input.begin(), input.end());
-    std::string alphabet = "zabcdefghijklmnopqrstuvwxyz";
-    for (int i = 1; i < (int)input.length(); i++) {
-        for (int j = 1; j < (int)alphabet.length(); j++) {
-            if (word[i] == alphabet[j]) {
-                word[i] = alphabet[(j - 1) % 26];
-                break;
-            }
-        }
-    }
-    std::string str(word.begin(), word.end());
-    return str;
-}
-
-//Метод шифрования текста из LineEdit
-void encryptionClass::encryptText(QLineEdit *encr)
+//Шифрование
+QString encryptionClass::stringEncrypt(QString strInput, QString strPassword)
 {
-    QString text = encr->text();
-    //Конвертируем текст из QString в String
-    std::string convText = text.toStdString();
-    //Шифруем конвертируемый текст
-    std::string encryptText = encrypt(convText);
-    //Конвертируем зашифрованный текст обратно в QString
-    strTxt = QString::fromStdString(encryptText);
+    int i,j;
+           QString strOutput="";
 
+           // Перевод строк в битовые массивы с использованием локальных таблиц
+           QByteArray baInput    = strInput.toLocal8Bit();
+           QByteArray baPassword = strPassword.toLocal8Bit();
+
+           // Кодирование информации
+           for (i=0; i < baInput.size(); i++)
+           {
+               for (j=0; j < baPassword.size(); j++)
+               {
+                   // XOR - кодировка символа
+                   baInput[i] = baInput[i] ^ (baPassword[j] + (i*j));
+               }
+
+               //Преобразование числа в шестнадцатеричную систему
+               strOutput += QString("%1").arg((int)((unsigned char)baInput[i]),2,16,QChar('0'));
+           }
+
+           //Возврат значение кодированной строки в метод
+           return strOutput;
 }
 
-//Метод дешифрования текста из LineEdit
-void encryptionClass::decryptText(QLineEdit *decr)
+//Дешифрование
+QString encryptionClass::stringDecrypt(QString strInput, QString strPassword)
 {
-    QString text = decr->text();
-    //Конвертируем текст из QString в String
-    std::string convText = text.toStdString();
-    //Дешифруем конвертируемый текст
-    std::string encryptText = decrypt(convText);
-    //Конвертируем дешифрованный текст обратно в QString
-    strTxt = QString::fromStdString(encryptText);
+    int i,j;
+
+            // Декодировка строки из 16-ричной системы в битовый массив
+            QByteArray baInput    = QByteArray::fromHex(strInput.toLocal8Bit());
+            // Перевод строки пароля в битовый массив
+            QByteArray baPassword = strPassword.toLocal8Bit();
+
+            // Декодирование информации
+            for (i=0; i < baInput.size(); i++)
+            {
+                for (j=0; j < baPassword.size(); j++)
+                {
+                    // XOR - кодировка символа
+                    baInput[i] = baInput[i] ^ (baPassword[j] + (i*j));
+                }
+            }
+
+            //Возврат значения декодированной строки в метод
+            return QString::fromLocal8Bit(baInput.data());
 }
+

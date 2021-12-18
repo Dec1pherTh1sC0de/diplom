@@ -17,7 +17,13 @@
 //Библиотека для работы с LineEdit
 #include <QLineEdit>
 
-class miniDB
+//Библиотека для работы с мессэджбоксами
+#include <QMessageBox>
+
+//Библиотека для работы с шифрованием
+#include <encryptionclass.h>
+
+class miniDB : QMainWindow
 {
 public:
     miniDB();
@@ -27,11 +33,23 @@ public:
     QSqlQuery *query;
     QSqlTableModel *model;
 
+    //Номер активной строки
+    int row;
+
+    //Переменная для работы с калассами
+    encryptionClass *encryptcls;
+
     //Метод для подключения и создания miniDB
     void ccMiniDB();
 
     //Метод для подключение БД
-    void database(QLineEdit *strdbName, QLineEdit *strhost, QLineEdit *strusr, QLineEdit *strpwd);
+    QString database(QLineEdit *strdbName, QLineEdit *strhost, QLineEdit *strusr, QLineEdit *strpwd);
+
+    //Метод для изменения строки подключения
+    void changeConnect(QString dbName, QString host, QString usr, QString pwd);
+
+    //Метод для смены пинкода
+    void chengePin(QString pin);
 };
 
 #endif // MINIDB_H

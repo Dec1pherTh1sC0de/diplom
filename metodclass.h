@@ -28,6 +28,10 @@
 
 //Библиотека для работы с tableView
 #include <QTableView>
+
+//Библиотека для работы с заблюриванием окна
+#include <QGraphicsBlurEffect>
+
 class metodClass
 {
 
@@ -52,6 +56,9 @@ public:
     //Вызов окна с предупреждением перед закрытием окна
     void closeEvent(QMainWindow* window);
 
+    //Вызов окна с предупреждением об ошибке подключения
+    void connectError(QMainWindow* window);
+
     //Задает параметры окна
     void styleWindows(QMainWindow *window, qint32 x, qint32 y);
 
@@ -65,6 +72,27 @@ public:
 
     //Стиль таблицы
     void styleTableView(QTableView *table);
+
+    //Стиль основного рабочего окна
+    void styleWorkWindow();
+
+    //Заблюривание окна
+    void blurWindow(QMainWindow *window);
+
+    //Отблюривание окна
+    void unblurWindow(QMainWindow *window);
+
+    //Скрытие виджета подключения
+    void hideConnectWidget(QWidget *widget, QWidget *widget2);
+
+    //Скрытие виджета пинкода
+    void hidePincodeWidget(QWidget *widget, QWidget *widget2);
+
+    //Открытие виджета подключения
+    void showConnectWidget(QWidget *widget, QWidget *widget2);
+
+    //Переход назад на виджет авторизации
+    void goToAutWidget(QWidget *widget, QWidget *widget2);
 };
 
 #endif // METODCLASS_H

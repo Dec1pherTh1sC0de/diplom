@@ -10,7 +10,7 @@ void miniDB::ccMiniDB()
 {
     //Инициализация Базы данных
     QSqlDatabase dbase = QSqlDatabase::addDatabase("QSQLITE");
-    dbase.setDatabaseName("minidb.sqlite");
+    dbase.setDatabaseName("mindb");
     //Проверка подключения БД
     if (!dbase.open())
     {
@@ -24,11 +24,7 @@ void miniDB::ccMiniDB()
                     "ID integer PRIMARY KEY NOT NULL, "
                     "`Пароль` VARCHAR(255)"
                     ");";
-    bool a = a_query.exec(str);
-    if (!a)
-    {
-        qDebug() << "Видимо таблица уже созданна";
-    }
+    a_query.exec(str);
 
     //Создание таблицы с данными подключения
     QString str1 = "CREATE TABLE connect ("
@@ -38,31 +34,60 @@ void miniDB::ccMiniDB()
                     "`usr` VARCHAR(255), "
                     "`pwd` VARCHAR(255)"
                     ");";
-    bool b = a_query.exec(str1);
-    if (!b)
-    {
-        qDebug() << "Видимо таблица уже созданна";
-    }
+    a_query.exec(str1);
 }
 
 //Метод для подключения базы данных
-void miniDB::database(QLineEdit *strdbName, QLineEdit *strhost, QLineEdit *strusr, QLineEdit *strpwd)
+QString miniDB::database(QLineEdit *strdbName, QLineEdit *strhost, QLineEdit *strusr, QLineEdit *strpwd)
 {
+    QString error = "0";
+
     QString dbName = strdbName->text();
     QString host = strhost->text();
     QString usr = strusr->text();
     QString pwd = strpwd->text();
-        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-        db.setHostName(host);//название хоста
-        db.setUserName(usr);//имя пользователя
-        db.setPassword(pwd);//пароль
-        db.setDatabaseName(dbName);//название базы данных
-        if (db.open())
-           {
-               qDebug() << "Успех"; //Оповещение о успехе подключения
-           }
-           else
-           {
-               qDebug() << "Что-то пошло не так!"; //Oповещение о неудаче
-           }
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    db.setHostName(host);//название хоста
+    db.setUserName(usr);//имя пользователя
+    db.setPassword(pwd);//пароль
+    db.setDatabaseName(dbName);//название базы данных
+    if (db.open())
+       {
+          error = "1";
+          return error;
+       }
+    return 0;
+}
+
+//Изменение строки подключения
+void miniDB::changeConnect(QString dbName, QString host, QString usr, QString pwd)
+{
+    //Удаление старых данных
+    QSqlQuery a_query;
+    a_query.exec("DELETE FROM connect");
+
+    //Вставка новых данных
+    QSqlQuery b_query;
+    b_query.prepare("INSERT INTO connect (ID, dbName, host, usr,pwd) "
+            "VALUES (null, ?, ?, ?, ?)");
+    b_query.addBindValue(dbName);
+    b_query.addBindValue(host);
+    b_query.addBindValue(usr);
+    b_query.addBindValue(pwd);
+    b_query.exec();
+}
+
+//Метод для смены пинкода
+void miniDB::chengePin(QString pin)
+{
+    //Удаление старых данных
+    QSqlQuery a_query;
+    a_query.exec("DELETE FROM pincod");
+
+    //Вставка новых данных
+    QSqlQuery b_query;
+    b_query.prepare("INSERT INTO pincod (ID, `Пароль`) "
+            "VALUES (null, ?)");
+    b_query.addBindValue(pin);
+    b_query.exec();
 }

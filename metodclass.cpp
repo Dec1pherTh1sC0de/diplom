@@ -68,10 +68,32 @@ void metodClass::centerScreen(QMainWindow *window)
 //Вызов диалога при закрытии формы на крестик
 void metodClass::closeEvent(QMainWindow *window)
 {
+    //Заблюривание окна
+    blurWindow(window);
+
     QMessageBox::StandardButton questions = QMessageBox::information(window,"Выход","Вы действительно хотите выйти из программы?",QMessageBox::Yes | QMessageBox::No);
     if(questions ==QMessageBox::Yes)
     {
         QApplication::quit();
+    }
+    else
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+//Вызов окна с предупреждением об ошибке подключения
+void metodClass::connectError(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Ошибка","Проверьте подключение",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
     }
 }
 
@@ -163,4 +185,48 @@ void metodClass::styleTableView(QTableView *table)
 
     //Установка цвета таблицы
     table->setStyleSheet("background-color: #FFFFFF;");
+}
+
+//Заблюривание окна
+void metodClass::blurWindow(QMainWindow *window)
+{
+    QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
+    blur->setBlurRadius(2);
+    window->setGraphicsEffect(blur);
+}
+
+//Отблюривание окна
+void metodClass::unblurWindow(QMainWindow *window)
+{
+    QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
+    blur->setBlurRadius(0);
+    window->setGraphicsEffect(blur);
+}
+
+//Скрытие виджета подключения
+void metodClass::hideConnectWidget(QWidget *widget, QWidget *widget2)
+{
+    widget->hide();
+    widget2->show();
+}
+
+//Скрытие виджета пинкода
+void metodClass::hidePincodeWidget(QWidget *widget, QWidget *widget2)
+{
+    widget->hide();
+    widget2->show();
+}
+
+//Открытие виджета подключения
+void metodClass::showConnectWidget(QWidget *widget, QWidget *widget2)
+{
+    widget->show();
+    widget2->hide();
+}
+
+//Переход назад на виджет авторизации
+void metodClass::goToAutWidget(QWidget *widget, QWidget *widget2)
+{
+    widget->hide();
+    widget2->show();
 }

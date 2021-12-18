@@ -49,6 +49,8 @@ public:
     encryptionClass *encryptcls;
     miniDB *mindb;
 
+    //Ключ
+    QString keyPAS = "DzSkKhqMu6djTksHWWne4GWQJiEz5oZzRJdgSbkozXacwCrWDk";
 
     //Создаем и подключаем объекты для работы с БД
     QSqlDatabase sdb;
