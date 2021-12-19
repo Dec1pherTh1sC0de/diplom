@@ -11,7 +11,11 @@
 #include <QSqlError>
 #include <QSqlTableModel>
 
+//Библиотека для работы с мышью
 #include <QMouseEvent>
+
+//Библиотека для дебага в консоль
+#include<QtDebug>
 
 //Классы с функционалом
 #include <metodclass.h>
@@ -56,6 +60,15 @@ public:
     QSqlDatabase sdb;
     QSqlQuery *query;
     QSqlTableModel *model;
+
+    //Выбор модели таблицы пинкод
+    void modelPin();
+
+    //Выбор модели таблицы подключения
+    void modelConnection();
+
+    //Выбор модели таблицы авторизации
+    void modelAutorize();
 
 private slots:
 

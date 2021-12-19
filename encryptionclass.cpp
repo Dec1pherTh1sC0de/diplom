@@ -56,3 +56,20 @@ QString encryptionClass::stringDecrypt(QString strInput, QString strPassword)
             return QString::fromLocal8Bit(baInput.data());
 }
 
+//Метод проверки пинкода
+QString encryptionClass::checkPin(QString pin, QString key, QString data)
+{
+    //Принимаем значение пинкода
+    QString stpin = pin;
+
+    //Шифруем пинкод
+    QString encrPin = stringEncrypt(stpin,key);
+    //Проверяем пин
+    if(encrPin == data)
+    {
+        return "1";
+    }
+    return "0";
+}
+
+

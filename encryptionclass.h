@@ -29,6 +29,10 @@ public:
 
     // Декодирование строки
     QString stringDecrypt(QString strInput, QString strPassword);
+
+    //Метод проверки пинкода
+    QString checkPin(QString pin, QString key, QString data);
+
 };
 
 #endif // ENCRYPTIONCLASS_H

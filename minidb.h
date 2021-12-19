@@ -50,6 +50,9 @@ public:
 
     //Метод для смены пинкода
     void chengePin(QString pin);
+
+    //Метод смены данных авторизации
+    void changeAutorizeDataAdmin(QString login, QString password);
 };
 
 #endif // MINIDB_H

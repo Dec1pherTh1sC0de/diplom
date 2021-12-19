@@ -93,6 +93,19 @@ public:
 
     //Переход назад на виджет авторизации
     void goToAutWidget(QWidget *widget, QWidget *widget2);
+
+    //Скрытие виджетов перед запуском и открытие виджета пинкода
+    void hideFirstWidget(QWidget *widget, QWidget *widget2);
+
+    //Вызов окна неверного пина
+    void pinError(QMainWindow *window);
+
+    //Вызов окна неверного логина
+    void loginError(QMainWindow *window);
+
+    //Вызов окна неверного пароля
+    void passError(QMainWindow *window);
+
 };
 
 #endif // METODCLASS_H

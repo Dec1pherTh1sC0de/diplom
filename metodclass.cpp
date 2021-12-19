@@ -230,3 +230,52 @@ void metodClass::goToAutWidget(QWidget *widget, QWidget *widget2)
     widget->hide();
     widget2->show();
 }
+
+//Скрытие виджетов перед запуском и открытие виджета пинкода
+void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2)
+{
+    widget->hide();
+    widget2->hide();
+}
+
+ //Вызов окна неверного пароля
+void metodClass::pinError(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Ошибка","Неверный пинкод",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+ //Вызов окна неверного логина
+void metodClass::loginError(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Ошибка","Неверный логин",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+//Вызов окна неверного пароля
+void metodClass::passError(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Ошибка","Неверный пароль",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
