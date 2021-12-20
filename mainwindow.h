@@ -56,6 +56,16 @@ public:
     //Ключ
     QString keyPAS = "DzSkKhqMu6djTksHWWne4GWQJiEz5oZzRJdgSbkozXacwCrWDk";
 
+    //Ширина формы
+    qint32 shirina = 0;
+
+    //Переменные запоминающие размеры окна
+    qint32 oldHeigt = 0;
+    qint32 oldWeigt = 0;
+
+    //Переменная запоминающая развернуто окно на максимум или нет
+    qint32 ifmax = 0;
+
     //Создаем и подключаем объекты для работы с БД
     QSqlDatabase sdb;
     QSqlQuery *query;
@@ -80,5 +90,14 @@ private slots:
     void on_CloseButton_3_clicked();
     void on_CloseButton_4_clicked();
     void on_EnterPushButton_clicked();
+    void on_ConnectBDButton_2_clicked();
+    void on_RefreshConnection_clicked();
+    void on_ShowPinButton_pressed();
+    void on_ShowPinButton_released();
+    void on_ShowPassButton_pressed();
+    void on_ShowPassButton_released();
+    void on_CloseButton_5_clicked();
+    void on_SvernutButton_clicked();
+    void on_RazvernutButton_clicked();
 };
 #endif // MAINWINDOW_H

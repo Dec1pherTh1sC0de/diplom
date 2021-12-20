@@ -63,18 +63,15 @@ public:
     void styleWindows(QMainWindow *window, qint32 x, qint32 y);
 
     //Задание стилей виджетов
-    void stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QLineEdit *lnedit);
-    void styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct);
-    void styleConnectionWidget(QWidget *window, QPushButton *connect, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut);
+    void stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit);
+    void styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct, QPushButton *showPass);
+    void styleConnectionWidget(QWidget *window, QPushButton *connect, QPushButton *connect2, QPushButton *refresh, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut);
 
     //Скрытие виджетов входа
     void enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con);
 
     //Стиль таблицы
-    void styleTableView(QTableView *table);
-
-    //Стиль основного рабочего окна
-    void styleWorkWindow();
+    void styleTableView(QTableView *table, qint32 x, qint32 y);
 
     //Заблюривание окна
     void blurWindow(QMainWindow *window);
@@ -106,6 +103,26 @@ public:
     //Вызов окна неверного пароля
     void passError(QMainWindow *window);
 
+    //Вызов окна об удачной смене данных
+    void successChangeData(QMainWindow *window);
+
+    //Вызов окна заполните все поля
+    void enterAllLineEdit(QMainWindow *window);
+
+    //Метод показа пароля или пинкода
+    void showPassPin(QLineEdit *lineEdit);
+
+    //Метод спрятать пароль или пинкод
+    void hidePassPin(QLineEdit *lineEdit);
+
+    //Метод горизонтального виджета
+    void gorizontalWidget(QWidget *window);
+
+    //Метод показа виджета кнопок
+    void buttonWinWidget(QMainWindow *window, QWidget *widget,QPushButton *block, QPushButton *svernut, QPushButton *razvernut, QPushButton *close);
+
+    //Максимизация окна
+    void maximizeWindow(QMainWindow *window);
 };
 
 #endif // METODCLASS_H

@@ -120,7 +120,7 @@ void metodClass::styleWindows(QMainWindow *window, qint32 x,  qint32 y)
 }
 
 //Метод для задания стиля виджета пинкода
-void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QLineEdit *lnedit)
+void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit)
 {
     window->setGeometry(0,0,341,241);
 
@@ -130,12 +130,17 @@ void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButt
     //Изменение стилей LineEdit
     styleLineEdit(lnedit);
 
+    //Стиль ввода пароля
+    lnedit->setEchoMode(QLineEdit::Password);
+
     //Применение стиля кнопки закратия, а так же передача пути картинки в метод
     styleTransparentButton(transp, "icon/window-close-2.ico");
+    styleTransparentButton(show,"icon/document-encrypt-2.ico");
+
 }
 
 //Метод для задания стиля виджета авторизации
-void metodClass::styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct)
+void metodClass::styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct, QPushButton *showPass)
 {
     window->setGeometry(0,0,341,241);
 
@@ -146,18 +151,23 @@ void metodClass::styleAutorizationWidget(QWidget *window, QPushButton *enter, QL
     styleLineEdit(login);
     styleLineEdit(password);
 
+    //Стиль ввода пароля
+    password->setEchoMode(QLineEdit::Password);
+
     //Применение стиля кнопки закратия, а так же передача пути картинки в метод
     styleTransparentButton(close, "icon/window-close-2.ico");
     styleTransparentButton(connct, "icon/db.ico");
+    styleTransparentButton(showPass,"icon/document-encrypt-2.ico");
 }
 
 //Метод для задания стиля виджета подключения
-void metodClass::styleConnectionWidget(QWidget *window, QPushButton *connect, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut)
+void metodClass::styleConnectionWidget(QWidget *window, QPushButton *connect, QPushButton *connect2, QPushButton *refresh, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut)
 {
     window->setGeometry(0,0,341,241);
 
     //Изменения стиля кнопки входа
     styleButton(connect);
+    styleButton(connect2);
 
     //Изменение стилей LineEdit
     styleLineEdit(Bdname);
@@ -168,6 +178,7 @@ void metodClass::styleConnectionWidget(QWidget *window, QPushButton *connect, QL
     //Применение стиля кнопки закратия, а так же передача пути картинки в метод
     styleTransparentButton(close, "icon/window-close-2.ico");
     styleTransparentButton(goToAut, "icon/arrow-left.ico");
+    styleTransparentButton(refresh,"icon/view-refresh-5.ico");
 }
 
 //Скрытие виджетов входа
@@ -179,12 +190,15 @@ void metodClass::enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con)
 }
 
 //Стиль tableView
-void metodClass::styleTableView(QTableView *table)
+void metodClass::styleTableView(QTableView *table, qint32 x, qint32 y)
 {
-    table->setGeometry(0,0,400,400);
+    table->setGeometry(10,53,x -20,y -62);
 
-    //Установка цвета таблицы
-    table->setStyleSheet("background-color: #FFFFFF;");
+    //Установка цвета таблицы и заголовков таблицы
+    table->setStyleSheet(
+                "QTableView{border : 0; border-radius: 10px; padding: 5px; background: transparent; background-color: #FFFFFF;}"
+                "QHeaderView{background-color: #FFFFFF}"
+                        );
 }
 
 //Заблюривание окна
@@ -278,4 +292,105 @@ void metodClass::passError(QMainWindow *window)
         //Отблюривание окна
         unblurWindow(window);
     }
+}
+
+//Вызов окна об удачной смене данных
+void metodClass::successChangeData(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Успех","Данные подключения изменены и сохранены",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+//Вызов окна заполните все поля
+void metodClass::enterAllLineEdit(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Внимание","Заполните все поля",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+//Метод показа пароля или пинкода
+void metodClass::showPassPin(QLineEdit *lineEdit)
+{
+    //Стиль ввода пароля
+    lineEdit->setEchoMode(QLineEdit::Normal);
+}
+
+//Метод спрятать пароль или пинкод
+void metodClass::hidePassPin(QLineEdit *lineEdit)
+{
+    //Стиль ввода пароля
+    lineEdit->setEchoMode(QLineEdit::Password);
+}
+
+//Метод горизонтального виджета
+void metodClass::gorizontalWidget(QWidget *window)
+{
+
+    //Задание размещения виджета
+    window->setGeometry(10,0,680,51);
+}
+
+//Метод показа виджета кнопок
+void metodClass::buttonWinWidget(QMainWindow *window, QWidget *widget, QPushButton *block, QPushButton *svernut, QPushButton *razvernut, QPushButton *close)
+{
+    //Получение ширины окна
+    qint32 winWidth = window->width();
+
+    //Задание геометрии виджета
+    widget->setGeometry(winWidth - 201,0,201,51);
+
+    //Показать виджет
+    widget->show();
+
+    //Применение стия кнопки блкировки формы, а так же передача пути картинки в метод
+    styleTransparentButton(block,"icon/document-encrypt-3.ico");
+
+    //Применение стия кнопки свернуть, а так же передача пути картинки в метод
+    styleTransparentButton(svernut,"icon/arrow-down.ico");
+
+    //Применение стия кнопки развернуть, а так же передача пути картинки в метод
+    styleTransparentButton(razvernut,"icon/arrow-up.ico");
+
+    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
+    styleTransparentButton(close, "icon/window-close-2.ico");
+}
+
+//Максимизация окна
+void metodClass::maximizeWindow(QMainWindow *window)
+{
+   //Получение размеров экрана
+   QRect desktopRect1 = QApplication::desktop()->availableGeometry(window);
+
+   //Изменение размеров окна
+   window->resize(desktopRect1.width(),desktopRect1.height());
+
+   //Скругление краев окна
+   skryglenie(window);
+
+   //Установка цвета окна
+   window->setStyleSheet("background-color: #393E46;");
+
+   //Запрет на изменение размеров окна и установка дефолтных размеров
+   //window->setFixedSize(QSize(x, y));
+
+   //Скрывает заголовок окна
+   window->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+
+   //Размещение окна по центру при запуске
+   centerScreen(window);
+
 }

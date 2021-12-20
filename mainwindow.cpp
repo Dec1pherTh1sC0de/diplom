@@ -11,13 +11,13 @@ MainWindow::MainWindow(QWidget *parent)
 mtdcls->styleWindows(this,341,241);
 
 //Задане стиля PinCodeWidget
-mtdcls->stylePincodeWidget(this->ui->PinCodeWidget,this->ui->EnterPinCodePushButton,this->ui->CloseButton,this->ui->PinCodeLineEdit);
+mtdcls->stylePincodeWidget(this->ui->PinCodeWidget,this->ui->EnterPinCodePushButton,this->ui->CloseButton,this->ui->ShowPinButton,this->ui->PinCodeLineEdit);
 
 //Задане стилей AutorizationWidget
-mtdcls->styleAutorizationWidget(this->ui->AutorizationWidget,this->ui->EnterPushButton,this->ui->LoginLineEdit,this->ui->PasswordLineEdit,this->ui->CloseButton_3,this->ui->ConnectWidgetButton);
+mtdcls->styleAutorizationWidget(this->ui->AutorizationWidget,this->ui->EnterPushButton,this->ui->LoginLineEdit,this->ui->PasswordLineEdit,this->ui->CloseButton_3,this->ui->ConnectWidgetButton, this->ui->ShowPassButton);
 
 //Задане стилей ConnectionWidget
-mtdcls->styleConnectionWidget(this->ui->ConnectionWidget,this->ui->ConnectBDButton,this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit,this->ui->CloseButton_4,this->ui->GoToAutorizationWidget);
+mtdcls->styleConnectionWidget(this->ui->ConnectionWidget,this->ui->ConnectBDButton, this->ui->ConnectBDButton_2, this->ui->RefreshConnection,this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit,this->ui->CloseButton_4,this->ui->GoToAutorizationWidget);
 
 //Скрытие виджетов перед запуском и открытие виджета пинкода
 mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget);
@@ -87,26 +87,37 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
 //Смена данных подключения к БД
 void MainWindow::on_ConnectBDButton_clicked()
 {
-    //Подключение к мини БД
-    mindb->ccMiniDB();
+    if(this->ui->BDNameEdit->text() != "" && this->ui->HostEdit->text() != "" && this->ui->UserNameEdit->text() != "" && this->ui->PasswEdit->text() != "")
+    {
+        //Подключение к мини БД
+        mindb->ccMiniDB();
 
-    //Присваивание значений полей переменным
-    QString a = this->ui->BDNameEdit->text();
-    QString b = this->ui->HostEdit->text();
-    QString c = this->ui->UserNameEdit->text();
-    QString d = this->ui->PasswEdit->text();
+        //Присваивание значений полей переменным
+        QString a = this->ui->BDNameEdit->text();
+        QString b = this->ui->HostEdit->text();
+        QString c = this->ui->UserNameEdit->text();
+        QString d = this->ui->PasswEdit->text();
 
-    //Шифрование значений переменных
-    QString a1 = encryptcls->stringEncrypt(a,keyPAS);
-    QString b1 = encryptcls->stringEncrypt(b, keyPAS);
-    QString c1 = encryptcls->stringEncrypt(c, keyPAS);
-    QString d1 = encryptcls->stringEncrypt(d, keyPAS);
+        //Шифрование значений переменных
+        QString a1 = encryptcls->stringEncrypt(a,keyPAS);
+        QString b1 = encryptcls->stringEncrypt(b, keyPAS);
+        QString c1 = encryptcls->stringEncrypt(c, keyPAS);
+        QString d1 = encryptcls->stringEncrypt(d, keyPAS);
 
-    //Смена данных подключения в миниБД
-    mindb->changeConnect(a1,b1,c1,d1);
+        //Смена данных подключения в миниБД
+        mindb->changeConnect(a1,b1,c1,d1);
 
-    //Скрытие виджета подключения
-    mtdcls->hideConnectWidget(this->ui->ConnectionWidget,this->ui->AutorizationWidget);
+        //Вызов окна об удачной смене данных
+        mtdcls->successChangeData(this);
+
+        //Скрытие виджета подключения
+        mtdcls->hideConnectWidget(this->ui->ConnectionWidget,this->ui->AutorizationWidget);
+    }
+    else
+    {
+        //Вызов окна заполните все поля
+        mtdcls->enterAllLineEdit(this);
+    }
 }
 
 //Проверка пинкода для открытия авторизации
@@ -214,11 +225,26 @@ void MainWindow::on_EnterPushButton_clicked()
                 //Задание стиля окна
                 mtdcls->styleWindows(this,800,600);
 
+                //Принимаем значение текущих размеров окна и передаем их в переменные
+                oldHeigt = 800;
+                oldWeigt = 600;
+
+                //Присваивание ширины окна переменной
+                shirina = 800;
+
                 //Задание стиля таблицы
-                mtdcls->styleTableView(this->ui->tableView);
+                mtdcls->styleTableView(this->ui->tableView, this->width(), this->height());
+                this->ui->tableView->horizontalHeader()->show();
+                this->ui->tableView->verticalHeader()->show();
 
                 //Скрытие виджетов входа
                 mtdcls->enterWidgetHide(this->ui->PinCodeWidget, this->ui->AutorizationWidget, this->ui->ConnectionWidget);
+
+                //Метод показа верхнего виджета
+                mtdcls->gorizontalWidget(this->ui->HorizontalWidget);
+
+                //Метод отображения кнопок управления главным окном
+                mtdcls->buttonWinWidget(this, this->ui->ButtonWidget,this->ui->BlockFormButton, this->ui->SvernutButton,this->ui->RazvernutButton, this->ui->CloseButton_5);
             }
             else
             {
@@ -234,6 +260,129 @@ void MainWindow::on_EnterPushButton_clicked()
     {
         //Вывод окна с сообщением об ошибке
         mtdcls->connectError(this);
+    }
+}
+
+//Применить данные подключения
+void MainWindow::on_ConnectBDButton_2_clicked()
+{
+     if(this->ui->BDNameEdit->text() != "" && this->ui->HostEdit->text() != "" && this->ui->UserNameEdit->text() != "" && this->ui->PasswEdit->text() != "")
+     {
+         //Скрытие виджета подключения
+         mtdcls->hideConnectWidget(this->ui->ConnectionWidget,this->ui->AutorizationWidget);
+     }
+     else
+     {
+         //Вызов окна заполните все поля
+         mtdcls->enterAllLineEdit(this);
+     }
+}
+
+//Обновить данные подключения
+void MainWindow::on_RefreshConnection_clicked()
+{
+    //Выбираем таблицу для модели
+    modelConnection();
+
+    //Присваивание переменным значений полей
+    QString a = model->data(model->index(0, 1)).toString();
+    QString b = model->data(model->index(0, 2)).toString();
+    QString c = model->data(model->index(0, 3)).toString();
+    QString d = model->data(model->index(0, 4)).toString();
+
+    //Расшифровка значений переменных
+    QString a1 = encryptcls->stringDecrypt(a,keyPAS);
+    QString b1 = encryptcls->stringDecrypt(b, keyPAS);
+    QString c1 = encryptcls->stringDecrypt(c, keyPAS);
+    QString d1 = encryptcls->stringDecrypt(d, keyPAS);
+
+    //Заполнение полей данными
+    this->ui->BDNameEdit->setText(a1);
+    this->ui->HostEdit->setText(b1);
+    this->ui->UserNameEdit->setText(c1);
+    this->ui->PasswEdit->setText(d1);
+}
+
+//Показать пинкод
+void MainWindow::on_ShowPinButton_pressed()
+{
+    mtdcls->showPassPin(this->ui->PinCodeLineEdit);
+
+    //Изображение открытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPinButton,"icon/document-decrypt-2.ico");
+}
+
+//Спрятать пинкод
+void MainWindow::on_ShowPinButton_released()
+{
+    mtdcls->hidePassPin(this->ui->PinCodeLineEdit);
+
+    //Изображение закрытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPinButton,"icon/document-encrypt-2.ico");
+}
+
+//Показать пароль
+void MainWindow::on_ShowPassButton_pressed()
+{
+    mtdcls->showPassPin(this->ui->PasswordLineEdit);
+
+    //Изображение открытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPassButton,"icon/document-decrypt-2.ico");
+}
+
+//Спрятать пароль
+void MainWindow::on_ShowPassButton_released()
+{
+    mtdcls->hidePassPin(this->ui->PasswordLineEdit);
+
+    //Изображение закрытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPassButton,"icon/document-encrypt-2.ico");
+}
+
+//Кнопка закрытия формы
+void MainWindow::on_CloseButton_5_clicked()
+{
+    mtdcls->closeEvent(this);
+}
+
+//Сворачивание окна
+void MainWindow::on_SvernutButton_clicked()
+{
+    this->showMinimized();
+}
+
+//Разворачивание окна
+void MainWindow::on_RazvernutButton_clicked()
+{
+    if(ifmax == 0)
+    {
+        //Передаем что окно максимизированно
+        ifmax = 1;
+
+        //Максимизируем окно
+        mtdcls->maximizeWindow(this);
+
+        //Задание стиля таблицы
+        mtdcls->styleTableView(this->ui->tableView, this->width(), this->height());
+
+        //Метод отображения кнопок управления главным окном
+        mtdcls->buttonWinWidget(this, this->ui->ButtonWidget,this->ui->BlockFormButton, this->ui->SvernutButton,this->ui->RazvernutButton, this->ui->CloseButton_5);
+    }
+    else
+    {
+        //Передаем что окно прежних размеров
+        ifmax = 0;
+
+        //Задание стиля окна со старыми размерами
+        mtdcls->styleWindows(this,oldHeigt,oldWeigt);
+
+        //Задание стиля таблицы
+        mtdcls->styleTableView(this->ui->tableView, this->width(), this->height());
+        this->ui->tableView->horizontalHeader()->show();
+        this->ui->tableView->verticalHeader()->show();
+
+        //Метод отображения кнопок управления главным окном
+        mtdcls->buttonWinWidget(this, this->ui->ButtonWidget,this->ui->BlockFormButton, this->ui->SvernutButton,this->ui->RazvernutButton, this->ui->CloseButton_5);
     }
 }
 
