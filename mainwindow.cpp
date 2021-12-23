@@ -19,8 +19,11 @@ mtdcls->styleAutorizationWidget(this->ui->AutorizationWidget,this->ui->EnterPush
 //Задане стилей ConnectionWidget
 mtdcls->styleConnectionWidget(this->ui->ConnectionWidget,this->ui->ConnectBDButton, this->ui->ConnectBDButton_2, this->ui->RefreshConnection,this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit,this->ui->CloseButton_4,this->ui->GoToAutorizationWidget);
 
+//Задание стилей BlockWindowWidget
+mtdcls->styleBlockWindowWidget(this->ui->BlockWindow,this->ui->EnterPinCodePushButton_2,this->ui->ShowPinButton_2,this->ui->PinCodeLineEdit_2);
+
 //Скрытие виджетов перед запуском и открытие виджета пинкода
-mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget);
+mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget, this->ui->BlockWindow, this->ui->FillWindow);
 
 }
 
@@ -130,10 +133,10 @@ void MainWindow::on_EnterPinCodePushButton_clicked()
     modelPin();
 
     //Принимаем значение пинкода из БД и передаем его в переменную
-    QString z = model->data(model->index(0, 1)).toString();
+    pin = model->data(model->index(0, 1)).toString();
 
     //Проверяем пинкод
-    if(encryptcls->checkPin(this->ui->PinCodeLineEdit->text(),keyPAS,z) == "1")
+    if(encryptcls->checkPin(this->ui->PinCodeLineEdit->text(),keyPAS,pin) == "1")
     {
         //Скрытие виджета пинкода
         mtdcls->hidePincodeWidget(this->ui->PinCodeWidget,this->ui->AutorizationWidget);
@@ -365,6 +368,9 @@ void MainWindow::on_RazvernutButton_clicked()
         //Задание стиля таблицы
         mtdcls->styleTableView(this->ui->tableView, this->width(), this->height());
 
+        //Центрация виджета
+        mtdcls->centerWidget(this->width(),this->height(),this->ui->BlockWindow);
+
         //Метод отображения кнопок управления главным окном
         mtdcls->buttonWinWidget(this, this->ui->ButtonWidget,this->ui->BlockFormButton, this->ui->SvernutButton,this->ui->RazvernutButton, this->ui->CloseButton_5);
     }
@@ -376,6 +382,9 @@ void MainWindow::on_RazvernutButton_clicked()
         //Задание стиля окна со старыми размерами
         mtdcls->styleWindows(this,oldHeigt,oldWeigt);
 
+        //Центрация виджета
+        mtdcls->centerWidget(this->width(),this->height(),this->ui->BlockWindow);
+
         //Задание стиля таблицы
         mtdcls->styleTableView(this->ui->tableView, this->width(), this->height());
         this->ui->tableView->horizontalHeader()->show();
@@ -384,5 +393,62 @@ void MainWindow::on_RazvernutButton_clicked()
         //Метод отображения кнопок управления главным окном
         mtdcls->buttonWinWidget(this, this->ui->ButtonWidget,this->ui->BlockFormButton, this->ui->SvernutButton,this->ui->RazvernutButton, this->ui->CloseButton_5);
     }
+}
+
+//Блокировка рабочего окна
+void MainWindow::on_BlockFormButton_clicked()
+{
+
+    //Заполнение окна
+    this->ui->FillWindow->show();
+    this->ui->FillWindow->setStyleSheet("background-color: #212121; border-style: outset; border-width: 0px; border-radius: 10px;");
+    this->ui->FillWindow->setGeometry(0,0,this->width(),this->height());
+
+    //Показ виджета блокировки
+    this->ui->BlockWindow->show();
+
+    //Поднятие виджета на передний план
+    this->ui->BlockWindow->raise();
+
+    //Центрирование виджета
+    mtdcls->centerWidget(this->width(),this->height(),this->ui->BlockWindow);
+
+}
+
+//Разблокировать окно
+void MainWindow::on_EnterPinCodePushButton_2_clicked()
+{
+    //Принимаем значение введенного пинкода
+    QString entrPin = this->ui->PinCodeLineEdit_2->text();
+
+    //Проверка правильности пинкода
+    if(encryptcls->checkPin(entrPin,keyPAS,pin) == "1")
+    {
+        this->ui->BlockWindow->hide();
+        this->ui->FillWindow->hide();
+        this->ui->PinCodeLineEdit_2->clear();
+    }
+    else
+    {
+        mtdcls->pinError(this);
+    }
+}
+
+//Показать пинкод
+void MainWindow::on_ShowPinButton_2_pressed()
+{
+    mtdcls->showPassPin(this->ui->PinCodeLineEdit_2);
+
+    //Изображение открытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPinButton_2,"icon/document-decrypt-2.ico");
+}
+
+//Скрыть пинкод
+void MainWindow::on_ShowPinButton_2_released()
+{
+    mtdcls->hidePassPin(this->ui->PinCodeLineEdit_2);
+
+    //Изображение закрытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPinButton_2,"icon/document-encrypt-2.ico");
 }
 

@@ -181,6 +181,26 @@ void metodClass::styleConnectionWidget(QWidget *window, QPushButton *connect, QP
     styleTransparentButton(refresh,"icon/view-refresh-5.ico");
 }
 
+//Задание стиля виджета блокировки окна
+void metodClass::styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(enter);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(lineEdit);
+
+    //Установка парольных символов для лайнедита
+    hidePassPin(lineEdit);
+
+    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
+    styleTransparentButton(showPass, "icon/document-encrypt-2.ico");
+}
+
 //Скрытие виджетов входа
 void metodClass::enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con)
 {
@@ -246,10 +266,12 @@ void metodClass::goToAutWidget(QWidget *widget, QWidget *widget2)
 }
 
 //Скрытие виджетов перед запуском и открытие виджета пинкода
-void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2)
+void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4)
 {
     widget->hide();
     widget2->hide();
+    widget3->hide();
+    widget4->hide();
 }
 
  //Вызов окна неверного пароля
@@ -393,4 +415,26 @@ void metodClass::maximizeWindow(QMainWindow *window)
    //Размещение окна по центру при запуске
    centerScreen(window);
 
+}
+
+//Центрирование виджета
+void metodClass::centerWidget(qint32 x, qint32 y, QWidget *widget)
+{
+    widget->setGeometry((x*0.5)-170.5,(y*0.5)-120.5,341,241);
+}
+
+//Заблюривание виджета
+void metodClass::blurWidget(QWidget *window)
+{
+    QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
+    blur->setBlurRadius(2);
+    window->setGraphicsEffect(blur);
+}
+
+//Отблюривание виджета
+void metodClass::unblurWidget(QWidget *window)
+{
+    QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
+    blur->setBlurRadius(0);
+    window->setGraphicsEffect(blur);
 }

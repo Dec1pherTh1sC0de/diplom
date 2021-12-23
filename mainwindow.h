@@ -56,6 +56,9 @@ public:
     //Ключ
     QString keyPAS = "DzSkKhqMu6djTksHWWne4GWQJiEz5oZzRJdgSbkozXacwCrWDk";
 
+    //Переменная хранящая сессионный пин
+    QString pin = "";
+
     //Ширина формы
     qint32 shirina = 0;
 
@@ -99,5 +102,9 @@ private slots:
     void on_CloseButton_5_clicked();
     void on_SvernutButton_clicked();
     void on_RazvernutButton_clicked();
+    void on_BlockFormButton_clicked();
+    void on_EnterPinCodePushButton_2_clicked();
+    void on_ShowPinButton_2_pressed();
+    void on_ShowPinButton_2_released();
 };
 #endif // MAINWINDOW_H

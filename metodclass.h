@@ -66,6 +66,7 @@ public:
     void stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit);
     void styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct, QPushButton *showPass);
     void styleConnectionWidget(QWidget *window, QPushButton *connect, QPushButton *connect2, QPushButton *refresh, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut);
+    void styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit);
 
     //Скрытие виджетов входа
     void enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con);
@@ -92,7 +93,7 @@ public:
     void goToAutWidget(QWidget *widget, QWidget *widget2);
 
     //Скрытие виджетов перед запуском и открытие виджета пинкода
-    void hideFirstWidget(QWidget *widget, QWidget *widget2);
+    void hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4);
 
     //Вызов окна неверного пина
     void pinError(QMainWindow *window);
@@ -123,6 +124,16 @@ public:
 
     //Максимизация окна
     void maximizeWindow(QMainWindow *window);
+
+    //Центрирование виджета
+    void centerWidget(qint32 x, qint32 y, QWidget *widget);
+
+    //Заблюривание виджета
+    void blurWidget(QWidget *window);
+
+    //Отблюривание виджета
+    void unblurWidget(QWidget *window);
+
 };
 
 #endif // METODCLASS_H
