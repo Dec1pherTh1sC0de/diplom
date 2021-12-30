@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 mtdcls->styleWindows(this,341,241);
 
 //Задане стиля PinCodeWidget
-mtdcls->stylePincodeWidget(this->ui->PinCodeWidget,this->ui->EnterPinCodePushButton,this->ui->CloseButton,this->ui->ShowPinButton,this->ui->PinCodeLineEdit);
+mtdcls->stylePincodeWidget(this->ui->PinCodeWidget,this->ui->EnterPinCodePushButton,this->ui->CloseButton,this->ui->ShowPinButton,this->ui->PinCodeLineEdit, this->ui->ChangePinStart);
 
 //Задане стилей AutorizationWidget
 mtdcls->styleAutorizationWidget(this->ui->AutorizationWidget,this->ui->EnterPushButton,this->ui->LoginLineEdit,this->ui->PasswordLineEdit,this->ui->CloseButton_3,this->ui->ConnectWidgetButton, this->ui->ShowPassButton);
@@ -26,13 +26,15 @@ mtdcls->styleBlockWindowWidget(this->ui->BlockWindow,this->ui->EnterPinCodePushB
 mtdcls->horizontalWidget(this->ui->HorizontalWidget, this->ui->SettingButton);
 
 //Задание стиля виджету смены пинкода
-mtdcls->changePinCode(this->ui->ChangePinCode,this->ui->NazadIzNastroek_2,this->ui->EnterPinCodePushButton_3,this->ui->ShowPinButton_3,this->ui->PinCodeLineEdit_3, this->ui->EnterPinCodePushButton_4);
+mtdcls->changePinCode(this->ui->ChangePinCode,this->ui->NazadIzNastroek_2,this->ui->EnterPinCodePushButton_3,this->ui->ShowPinButton_3,this->ui->PinCodeLineEdit_3, this->ui->EnterPinCodePushButton_4, this->ui->NazadIzNastroek_3);
 
 //Задание стиля виджета настроек
 mtdcls->nastroyki(this->ui->Nastroyki,this->ui->NazadIzNastroek,this->ui->ChangePincodeSetting, this->ui->ChangePincodeSetting_2);
 
+//Задание стиля виджету смены авторизационных данных
+mtdcls->changeAvtorization(this->ui->ChangeAvtoeization, this->ui->ShowPassButton_2, this->ui->NazadKNastroykam, this->ui->EnterPushButton_2, this->ui->EnterPushButton_3, this->ui->LoginLineEdit_2, this->ui->PasswordLineEdit_2);
 //Скрытие виджетов перед запуском и открытие виджета пинкода
-mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget, this->ui->BlockWindow, this->ui->FillWindow, this->ui->HorizontalWidget, this->ui->ChangePinCode, this->ui->Nastroyki);
+mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget, this->ui->BlockWindow, this->ui->FillWindow, this->ui->HorizontalWidget, this->ui->ChangePinCode, this->ui->Nastroyki, this->ui->ChangeAvtoeization);
 
 }
 
@@ -498,6 +500,13 @@ void MainWindow::on_ChangePincodeSetting_clicked()
     //Показ виджета смены пинкода
     this->ui->ChangePinCode->show();
 
+    //Отчистка поля пинкода
+    this->ui->PinCodeLineEdit_3->clear();
+
+    //Скрытие\показ кнопок
+    this->ui->NazadIzNastroek_2->show();
+    this->ui->NazadIzNastroek_3->hide();
+
     //Скрытие кнопки
     this->ui->EnterPinCodePushButton_4->hide();
 
@@ -621,6 +630,225 @@ void MainWindow::on_EnterPinCodePushButton_4_clicked()
     {
         //Вызов окна заполните поле
         mtdcls->enterLineEdit(this);
+    }
+}
+
+//Смена пинкода в начале программы
+void MainWindow::on_ChangePinStart_clicked()
+{
+    //Подключение к мини БД
+    mindb->ccMiniDB();
+
+    //Выбираем таблицу для модели
+    modelPin();
+
+    //Принимаем значение пинкода из БД и передаем его в переменную
+    pin = model->data(model->index(0, 1)).toString();
+
+    //Проверяем пинкод
+    if(encryptcls->checkPin(this->ui->PinCodeLineEdit->text(),keyPAS,pin) == "1")
+    {
+        //Показ виджета смены пинкода
+        this->ui->ChangePinCode->show();
+
+        this->ui->NazadIzNastroek_2->hide();
+        this->ui->NazadIzNastroek_3->show();
+
+        //Скрытие кнопки
+        this->ui->EnterPinCodePushButton_4->hide();
+
+        //Центрирование виджета
+        mtdcls->centerWidget(this->width(),this->height(),this->ui->ChangePinCode);
+    }
+    else
+    {
+        //Проверка на пустое поле
+        if(this->ui->PinCodeLineEdit->text() == "")
+        {
+            //Вызов окна с ошибкой пинкода
+            mtdcls->firstVhangePin(this);
+        }
+        else
+        {
+            //Вызов окна с ошибкой пинкода
+            mtdcls->pinError(this);
+        }
+    }
+}
+
+//Назад к вводу пинкода
+void MainWindow::on_NazadIzNastroek_3_clicked()
+{
+    //Скрытие виджета смены пинкода
+    this->ui->ChangePinCode->hide();
+
+    //Скрытие\показ кнопок
+    this->ui->NazadIzNastroek_2->show();
+    this->ui->NazadIzNastroek_3->hide();
+
+    //Отчистка поля пинкода
+    this->ui->PinCodeLineEdit->clear();
+}
+
+//Смена авторизационных данных
+void MainWindow::on_ChangePincodeSetting_2_clicked()
+{
+    //Скрытие виджета настроек
+    this->ui->Nastroyki->hide();
+
+    //Показ виджета смены авторизационных данных
+    this->ui->ChangeAvtoeization->show();
+
+    //Задать полю свойство прятать пинкод
+    mtdcls->hidePassPin(this->ui->PasswordLineEdit_2);
+
+    //Прячем кнопки
+    this->ui->EnterPushButton_3->hide();
+
+    //Центрирование виджета
+    mtdcls->centerWidget(this->width(),this->height(),this->ui->ChangeAvtoeization);
+}
+
+//Назад к настройкам
+void MainWindow::on_NazadKNastroykam_clicked()
+{
+    //Скрытие виджета смены пинкода
+    this->ui->ChangeAvtoeization->hide();
+
+    //Вызов меню настроек
+    this->ui->Nastroyki->show();
+
+    //Отчистка полей
+    this->ui->LoginLineEdit_2->clear();
+    this->ui->PasswordLineEdit_2->clear();
+
+    //Показываем кнопки
+    this->ui->EnterPushButton_3->show();
+
+    //Смена надписи лэйбла
+    this->ui->label_18->setText("Введите старые данные");
+}
+
+//Показать пароль
+void MainWindow::on_ShowPassButton_2_pressed()
+{
+    mtdcls->showPassPin(this->ui->PasswordLineEdit_2);
+
+    //Изображение открытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPassButton_2,"icon/document-decrypt-2.ico");
+}
+
+//Спрятать пинкод
+void MainWindow::on_ShowPassButton_2_released()
+{
+    mtdcls->hidePassPin(this->ui->PasswordLineEdit_2);
+
+    //Изображение закрытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPassButton_2,"icon/document-encrypt-2.ico");
+}
+
+//Проверить авторизационные данные перед сменой
+void MainWindow::on_EnterPushButton_2_clicked()
+{
+    //Подключаем БД
+    QString a =  mindb->database(this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit);
+
+    if(a == "1")
+    {
+        //Выбор модели таблицы авторизации
+        modelAutorize();
+
+        //Присваивание переменным значение полей
+        QString z = model->data(model->index(0, 1)).toString();
+        QString z1 = model->data(model->index(0, 2)).toString();
+
+        //Проверяем на пустоту поля
+        if(this->ui->LoginLineEdit_2->text() != "" && this->ui->PasswordLineEdit_2->text() != "")
+        {
+            //Проверяем логин
+            if(encryptcls->checkPin(this->ui->LoginLineEdit_2->text(),keyPAS,z) == "1")
+            {
+                //Проверяем пароль
+                if(encryptcls->checkPin(this->ui->PasswordLineEdit_2->text(),keyPAS,z1) == "1")
+                {
+                    //Смена надписи лэйбла
+                    this->ui->label_18->setText("Введите новые данные");
+
+                    //Показываем кнопки
+                    this->ui->EnterPushButton_3->show();
+
+                    //Отчищаем поля
+                    this->ui->LoginLineEdit_2->clear();
+                    this->ui->PasswordLineEdit_2->clear();
+                }
+                else
+                {
+                    //Неправильный пароль
+                    mtdcls->passError(this);
+                }
+            }
+            else
+            {
+                //Неправильный логин
+                mtdcls->loginError(this);
+            }
+        }
+        else
+        {
+            //Вызов окна заполните все поля
+            mtdcls->enterAllLineEdit(this);
+        }
+    }
+    else
+    {
+        //Вывод окна с сообщением об ошибке
+        mtdcls->connectError(this);
+    }
+}
+
+//Сменить авторизационные данные
+void MainWindow::on_EnterPushButton_3_clicked()
+{
+    //Выбор модели таблицы авторизации
+    modelAutorize();
+
+    //Проверка на пустоту
+    if(this->ui->LoginLineEdit_2->text() != "" && this->ui->PasswordLineEdit_2->text() != "")
+    {
+        //Присваиваем значения полей переменным
+        QString a = this->ui->LoginLineEdit_2->text();
+        QString b = this->ui->PasswordLineEdit_2->text();
+
+        //Шифрование значений переменных
+        QString a1 = encryptcls->stringEncrypt(a,keyPAS);
+        QString b1 = encryptcls->stringEncrypt(b, keyPAS);
+
+        //Меняем авторизационные данные
+        mindb->changeAutorizeDataAdmin(a1,b1);
+
+        //Вызов окна об успешной смене данных
+        mtdcls->successChangeData(this);
+
+        //Скрытие виджета смены пинкода
+        this->ui->ChangeAvtoeization->hide();
+
+        //Вызов меню настроек
+        this->ui->Nastroyki->show();
+
+        //Отчистка полей
+        this->ui->LoginLineEdit_2->clear();
+        this->ui->PasswordLineEdit_2->clear();
+
+        //Показываем кнопки
+        this->ui->EnterPushButton_3->show();
+
+        //Смена надписи лэйбла
+        this->ui->label_18->setText("Введите старые данные");
+    }
+    else
+    {
+        //Вызов окна заполните все поля
+        mtdcls->enterAllLineEdit(this);
     }
 }
 

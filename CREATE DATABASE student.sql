@@ -150,8 +150,7 @@ CREATE TABLE otchislen
 
 INSERT autorize (Id, Login, Pass) 
 VALUES
-(0,'19df4fbc3a','19df4fbc3a'),
-(1,'19df4fbc3a','19df4fbc3a');
+(0,'19df4fbc3a','19df4fbc3a');
 
 INSERT budjet (Id, Budjet) 
 VALUES

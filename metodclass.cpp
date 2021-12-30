@@ -120,7 +120,7 @@ void metodClass::styleWindows(QMainWindow *window, qint32 x,  qint32 y)
 }
 
 //Метод для задания стиля виджета пинкода
-void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit)
+void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit, QPushButton *setting)
 {
     window->setGeometry(0,0,341,241);
 
@@ -136,6 +136,7 @@ void metodClass::stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButt
     //Применение стиля кнопки закратия, а так же передача пути картинки в метод
     styleTransparentButton(transp, "icon/window-close-2.ico");
     styleTransparentButton(show,"icon/document-encrypt-2.ico");
+    styleTransparentButton(setting, "icon/run-build-2.ico");
 
 }
 
@@ -202,7 +203,7 @@ void metodClass::styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPu
 }
 
 //Метод смены пинкода
-void metodClass::changePinCode(QWidget *window, QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina)
+void metodClass::changePinCode(QWidget *window, QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina, QPushButton *nazad2)
 {
     window->setGeometry(0,0,341,241);
 
@@ -223,6 +224,7 @@ void metodClass::changePinCode(QWidget *window, QPushButton *nazad, QPushButton 
 
     //Применение стиля кнопки назад
     styleTransparentButton(nazad, "icon/arrow-left.ico");
+    styleTransparentButton(nazad2, "icon/arrow-left.ico");
 }
 
 //Стиль горизонтального виджета
@@ -249,6 +251,28 @@ void metodClass::nastroyki(QWidget *window, QPushButton *nazad, QPushButton *but
 
     //Применение стиля кнопки назад
     styleTransparentButton(nazad, "icon/arrow-left.ico");
+}
+
+//Задание стиля виджета смены авторизационных данных
+void metodClass::changeAvtorization(QWidget *window, QPushButton *showPass, QPushButton *nazad, QPushButton *proverit, QPushButton *smenit, QLineEdit *login, QLineEdit *password)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(proverit);
+    styleButton(smenit);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(login);
+    styleLineEdit(password);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+
+    //Применение стиля кнопки назад, а так же передача пути картинки в метод
+    styleTransparentButton(showPass, "icon/document-encrypt-2.ico");
 }
 
 //Скрытие виджетов входа
@@ -316,7 +340,7 @@ void metodClass::goToAutWidget(QWidget *widget, QWidget *widget2)
 }
 
 //Скрытие виджетов перед запуском и открытие виджета пинкода
-void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4, QWidget *widget5, QWidget *widget6, QWidget *widget7)
+void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4, QWidget *widget5, QWidget *widget6, QWidget *widget7, QWidget *widget8)
 {
     widget->hide();
     widget2->hide();
@@ -325,6 +349,7 @@ void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *wid
     widget5->hide();
     widget6->hide();
     widget7->hide();
+    widget8->hide();
 }
 
  //Вызов окна неверного пароля
@@ -362,6 +387,20 @@ void metodClass::passError(QMainWindow *window)
     blurWindow(window);
 
     QMessageBox::StandardButton information = QMessageBox::information(window,"Ошибка","Неверный пароль",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+//Вызов окна ошибке при первоначальной смене пинкода
+void metodClass::firstVhangePin(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Ошибка","Введите пинкод прежде чем нажать на кнопку настроек",QMessageBox::Ok);
     if(information == QMessageBox::Ok)
     {
         //Отблюривание окна

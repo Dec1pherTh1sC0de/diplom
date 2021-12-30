@@ -63,13 +63,14 @@ public:
     void styleWindows(QMainWindow *window, qint32 x, qint32 y);
 
     //Задание стилей виджетов
-    void stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit);
+    void stylePincodeWidget(QWidget *window, QPushButton *btn, QPushButton *transp, QPushButton *show, QLineEdit *lnedit, QPushButton *setting);
     void styleAutorizationWidget(QWidget *window, QPushButton *enter, QLineEdit *login, QLineEdit *password, QPushButton *close, QPushButton *connct, QPushButton *showPass);
     void styleConnectionWidget(QWidget *window, QPushButton *connect, QPushButton *connect2, QPushButton *refresh, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut);
     void styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit);
-    void changePinCode(QWidget *window,QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina);
+    void changePinCode(QWidget *window,QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina, QPushButton *nazad2);
     void horizontalWidget(QWidget *window, QPushButton *first);
     void nastroyki(QWidget *window,QPushButton *nazad, QPushButton *button, QPushButton *button2);
+    void changeAvtorization(QWidget *window, QPushButton *showPass, QPushButton *nazad, QPushButton *proverit, QPushButton *smenit, QLineEdit *login, QLineEdit *password);
 
     //Скрытие виджетов входа
     void enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con);
@@ -96,7 +97,7 @@ public:
     void goToAutWidget(QWidget *widget, QWidget *widget2);
 
     //Скрытие виджетов перед запуском и открытие виджета пинкода
-    void hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4, QWidget *widget5, QWidget *widget6, QWidget *widget7);
+    void hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4, QWidget *widget5, QWidget *widget6, QWidget *widget7, QWidget *widget8);
 
     //Вызов окна неверного пина
     void pinError(QMainWindow *window);
@@ -106,6 +107,9 @@ public:
 
     //Вызов окна неверного пароля
     void passError(QMainWindow *window);
+
+    //Вызов окна ошибке при первоначальной смене пинкода
+    void firstVhangePin(QMainWindow *window);
 
     //Вызов окна об удачной смене данных
     void successChangeData(QMainWindow *window);

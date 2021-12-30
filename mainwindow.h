@@ -114,5 +114,13 @@ private slots:
     void on_ShowPinButton_3_released();
     void on_EnterPinCodePushButton_3_clicked();
     void on_EnterPinCodePushButton_4_clicked();
+    void on_ChangePinStart_clicked();
+    void on_NazadIzNastroek_3_clicked();
+    void on_ChangePincodeSetting_2_clicked();
+    void on_NazadKNastroykam_clicked();
+    void on_ShowPassButton_2_pressed();
+    void on_ShowPassButton_2_released();
+    void on_EnterPushButton_2_clicked();
+    void on_EnterPushButton_3_clicked();
 };
 #endif // MAINWINDOW_H

@@ -91,3 +91,19 @@ void miniDB::chengePin(QString pin)
     b_query.addBindValue(pin);
     b_query.exec();
 }
+
+//Метод смены авторизационных данных
+void miniDB::changeAutorizeDataAdmin(QString login, QString password)
+{
+    //Удаление старых данных
+    QSqlQuery a_query;
+    a_query.exec("DELETE FROM autorize");
+
+    //Вставка новых данных
+    QSqlQuery b_query;
+    b_query.prepare("INSERT INTO autorize (Id, Login, Pass) "
+            "VALUES (null, ?, ?)");
+    b_query.addBindValue(login);
+    b_query.addBindValue(password);
+    b_query.exec();
+}
