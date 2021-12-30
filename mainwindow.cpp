@@ -22,8 +22,17 @@ mtdcls->styleConnectionWidget(this->ui->ConnectionWidget,this->ui->ConnectBDButt
 //Задание стилей BlockWindowWidget
 mtdcls->styleBlockWindowWidget(this->ui->BlockWindow,this->ui->EnterPinCodePushButton_2,this->ui->ShowPinButton_2,this->ui->PinCodeLineEdit_2);
 
+//Задание стиля HorizontalWidget
+mtdcls->horizontalWidget(this->ui->HorizontalWidget, this->ui->SettingButton);
+
+//Задание стиля виджету смены пинкода
+mtdcls->changePinCode(this->ui->ChangePinCode,this->ui->NazadIzNastroek_2,this->ui->EnterPinCodePushButton_3,this->ui->ShowPinButton_3,this->ui->PinCodeLineEdit_3, this->ui->EnterPinCodePushButton_4);
+
+//Задание стиля виджета настроек
+mtdcls->nastroyki(this->ui->Nastroyki,this->ui->NazadIzNastroek,this->ui->ChangePincodeSetting, this->ui->ChangePincodeSetting_2);
+
 //Скрытие виджетов перед запуском и открытие виджета пинкода
-mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget, this->ui->BlockWindow, this->ui->FillWindow);
+mtdcls->hideFirstWidget(this->ui->AutorizationWidget,this->ui->ConnectionWidget, this->ui->BlockWindow, this->ui->FillWindow, this->ui->HorizontalWidget, this->ui->ChangePinCode, this->ui->Nastroyki);
 
 }
 
@@ -248,6 +257,9 @@ void MainWindow::on_EnterPushButton_clicked()
 
                 //Метод отображения кнопок управления главным окном
                 mtdcls->buttonWinWidget(this, this->ui->ButtonWidget,this->ui->BlockFormButton, this->ui->SvernutButton,this->ui->RazvernutButton, this->ui->CloseButton_5);
+
+                //Показ верхнего виджета
+                this->ui->HorizontalWidget->show();
             }
             else
             {
@@ -450,5 +462,165 @@ void MainWindow::on_ShowPinButton_2_released()
 
     //Изображение закрытого замка
     mtdcls->styleTransparentButton(this->ui->ShowPinButton_2,"icon/document-encrypt-2.ico");
+}
+
+//Вызов меню настроек
+void MainWindow::on_SettingButton_clicked()
+{
+    //Заполнение окна
+    this->ui->FillWindow->show();
+    this->ui->FillWindow->setStyleSheet("background-color: #212121; border-style: outset; border-width: 0px; border-radius: 10px;");
+    this->ui->FillWindow->setGeometry(0,0,this->width(),this->height());
+
+    //Вызов виджета настроек
+    this->ui->Nastroyki->show();
+
+    //Поднятие виджета на передний план
+    this->ui->Nastroyki->raise();
+
+    //Центрирование виджета
+    mtdcls->centerWidget(this->width(),this->height(),this->ui->Nastroyki);
+}
+
+//Закрыть виджет настроек
+void MainWindow::on_NazadIzNastroek_clicked()
+{
+    this->ui->Nastroyki->hide();
+    this->ui->FillWindow->hide();
+}
+
+//Смена пинкода
+void MainWindow::on_ChangePincodeSetting_clicked()
+{
+    //Скрытие виджета настроек
+    this->ui->Nastroyki->hide();
+
+    //Показ виджета смены пинкода
+    this->ui->ChangePinCode->show();
+
+    //Скрытие кнопки
+    this->ui->EnterPinCodePushButton_4->hide();
+
+    //Центрирование виджета
+    mtdcls->centerWidget(this->width(),this->height(),this->ui->ChangePinCode);
+}
+
+//Назад к настройкам
+void MainWindow::on_NazadIzNastroek_2_clicked()
+{
+    //Отчистка поля пинкода
+    this->ui->PinCodeLineEdit_3->clear();
+
+    //Изменяем  значения текста
+    this->ui->label_14->setText("Ведите старый пинкод");
+
+    //Скрываем предынущую кнопку
+    this->ui->EnterPinCodePushButton_3->show();
+
+    //Показываем кнопку смены пинкода
+    this->ui->EnterPinCodePushButton_4->hide();
+
+    //Скрытие виджета смены пинкода
+    this->ui->ChangePinCode->hide();
+
+    //Вызов меню настроек
+    this->ui->Nastroyki->show();
+}
+
+//Показать пароль
+void MainWindow::on_ShowPinButton_3_pressed()
+{
+    mtdcls->showPassPin(this->ui->PinCodeLineEdit_3);
+
+    //Изображение открытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPinButton_3,"icon/document-decrypt-2.ico");
+}
+
+//Скрыть пинкод
+void MainWindow::on_ShowPinButton_3_released()
+{
+    mtdcls->hidePassPin(this->ui->PinCodeLineEdit_3);
+
+    //Изображение закрытого замка
+    mtdcls->styleTransparentButton(this->ui->ShowPinButton_3,"icon/document-encrypt-2.ico");
+}
+
+//Проверка пинкода для дальнейшей его смены
+void MainWindow::on_EnterPinCodePushButton_3_clicked()
+{
+    //Принимаем значение введенного пинкода
+    QString entrPin = this->ui->PinCodeLineEdit_3->text();
+
+    //Проверка правильности пинкода
+    if(encryptcls->checkPin(entrPin,keyPAS,pin) == "1")
+    {
+        //Изменяем  значения текста
+        this->ui->label_14->setText("Ведите новый пинкод");
+
+        //Скрываем предынущую кнопку
+        this->ui->EnterPinCodePushButton_3->hide();
+
+        //Показываем кнопку смены пинкода
+        this->ui->EnterPinCodePushButton_4->show();
+
+        //Отчистка поля пинкода
+        this->ui->PinCodeLineEdit_3->clear();
+
+    }
+    else
+    {
+        mtdcls->pinError(this);
+    }
+}
+
+//Смена пинкода
+void MainWindow::on_EnterPinCodePushButton_4_clicked()
+{
+    if(this->ui->PinCodeLineEdit_3->text() != "")
+    {
+        //Подключение к мини БД
+        mindb->ccMiniDB();
+
+        //Выбираем таблицу для модели
+        modelPin();
+
+        //Принимаем значение введенного пинкода
+        QString entPinC = this->ui->PinCodeLineEdit_3->text();
+
+        //Шифрование значений переменных
+        QString entPinC1 = encryptcls->stringEncrypt(entPinC,keyPAS);
+
+        //Смена пинкода
+        mindb->chengePin(entPinC1);
+
+        //Вызов окна об удачной смене данных
+        mtdcls->successChangeData(this);
+
+        //Принимаем значение пинкода из БД и передаем его в переменную
+        pin = entPinC1;
+
+        //Отчистка поля пинкода
+        this->ui->PinCodeLineEdit_3->clear();
+
+        //Изменяем  значения текста
+        this->ui->label_14->setText("Ведите старый пинкод");
+
+        //Скрываем предынущую кнопку
+        this->ui->EnterPinCodePushButton_3->show();
+
+        //Показываем кнопку смены пинкода
+        this->ui->EnterPinCodePushButton_4->hide();
+
+        //Скрытие виджета смены пинкода
+        this->ui->ChangePinCode->hide();
+
+        //Вызов меню настроек
+        this->ui->Nastroyki->show();
+    }
+    else
+    {
+        //Вызов окна заполните поле
+        mtdcls->enterLineEdit(this);
+    }
 }
 

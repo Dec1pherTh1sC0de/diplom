@@ -201,6 +201,56 @@ void metodClass::styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPu
     styleTransparentButton(showPass, "icon/document-encrypt-2.ico");
 }
 
+//Метод смены пинкода
+void metodClass::changePinCode(QWidget *window, QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(enter);
+    styleButton(smenapina);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(lineEdit);
+
+    //Установка парольных символов для лайнедита
+    hidePassPin(lineEdit);
+
+    //Применение стиля кнопки закратия, а так же передача пути картинки в метод
+    styleTransparentButton(showPass, "icon/document-encrypt-2.ico");
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+}
+
+//Стиль горизонтального виджета
+void metodClass::horizontalWidget(QWidget *window, QPushButton *first)
+{
+    //Задание размеров виджета
+     window->setGeometry(0,0,681,51);
+
+     //Изменения стиля кнопки
+     styleButton(first);
+
+}
+
+//Задание стиля виджета настроек
+void metodClass::nastroyki(QWidget *window, QPushButton *nazad, QPushButton *button, QPushButton *button2)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(button);
+    styleButton(button2);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+}
+
 //Скрытие виджетов входа
 void metodClass::enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con)
 {
@@ -266,12 +316,15 @@ void metodClass::goToAutWidget(QWidget *widget, QWidget *widget2)
 }
 
 //Скрытие виджетов перед запуском и открытие виджета пинкода
-void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4)
+void metodClass::hideFirstWidget(QWidget *widget, QWidget *widget2, QWidget *widget3, QWidget *widget4, QWidget *widget5, QWidget *widget6, QWidget *widget7)
 {
     widget->hide();
     widget2->hide();
     widget3->hide();
     widget4->hide();
+    widget5->hide();
+    widget6->hide();
+    widget7->hide();
 }
 
  //Вызов окна неверного пароля
@@ -322,7 +375,7 @@ void metodClass::successChangeData(QMainWindow *window)
     //Заблюривание окна
     blurWindow(window);
 
-    QMessageBox::StandardButton information = QMessageBox::information(window,"Успех","Данные подключения изменены и сохранены",QMessageBox::Ok);
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Успех","Данные изменены и сохранены",QMessageBox::Ok);
     if(information == QMessageBox::Ok)
     {
         //Отблюривание окна
@@ -337,6 +390,20 @@ void metodClass::enterAllLineEdit(QMainWindow *window)
     blurWindow(window);
 
     QMessageBox::StandardButton information = QMessageBox::information(window,"Внимание","Заполните все поля",QMessageBox::Ok);
+    if(information == QMessageBox::Ok)
+    {
+        //Отблюривание окна
+        unblurWindow(window);
+    }
+}
+
+//Вызов окна заполните поле
+void metodClass::enterLineEdit(QMainWindow *window)
+{
+    //Заблюривание окна
+    blurWindow(window);
+
+    QMessageBox::StandardButton information = QMessageBox::information(window,"Внимание","Заполните поле",QMessageBox::Ok);
     if(information == QMessageBox::Ok)
     {
         //Отблюривание окна
@@ -363,7 +430,7 @@ void metodClass::gorizontalWidget(QWidget *window)
 {
 
     //Задание размещения виджета
-    window->setGeometry(10,0,680,51);
+    window->setGeometry(10,0,551,51);
 }
 
 //Метод показа виджета кнопок
