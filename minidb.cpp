@@ -107,3 +107,57 @@ void miniDB::changeAutorizeDataAdmin(QString login, QString password)
     b_query.addBindValue(password);
     b_query.exec();
 }
+
+//Добавление данных в группу
+void miniDB::addDataGrup(QString Gruppa, QString Kurator, QString NomerCuratora, QString Starosta, QString NomerStarosty)
+{
+    //Вставка новых данных
+    QSqlQuery b_query;
+    b_query.prepare("INSERT INTO gruppy (Id, Gruppa, Kurator, NomerCuratora, Starosta, NomerStarosty) "
+            "VALUES (null, ?, ?, ?, ?, ?)");
+    b_query.addBindValue(Gruppa);
+    b_query.addBindValue(Kurator);
+    b_query.addBindValue(NomerCuratora);
+    b_query.addBindValue(Starosta);
+    b_query.addBindValue(NomerStarosty);
+    b_query.exec();
+}
+
+//Добавление студента
+void miniDB::addData(QString Specialnost, QString Formaobuch, QString Obooso, QString Kurs, QString NumberOfGroup, QString Budget, QString AdresObshagi, QString Pol, QString Familia, QString Imya, QString Otchestvo, QString DataRojdenia, QString PassData, QString SredniyBallPosleSchool, QString Inyaz, QString MobilniyTel, QString Oblast, QString Gorod, QString Rayon, QString AdresProjiv, QString SredniyBall, QString Celevik, QString Roditeli, QString MestoRaboty, QString Ligoty, QString Primechanie, QString Otchislen, QString DataZachisleniya, QString DataOtchislenya)
+{
+    //Вставка новых данных
+    QSqlQuery b_query;
+    b_query.prepare("INSERT INTO ycheniki (Id, Specialnost, Formaobuch, Obooso, Kurs, NumberOfGroup, Budget, AdresObshagi, Pol, Familia, Imya, Otchestvo, DataRojdenia, PassData, SredniyBallPosleSchool, Inyaz, MobilniyTel, Oblast, Gorod, Rayon, AdresProjiv, SredniyBall, Celevik, Roditeli, MestoRaboty, Ligoty, Primechanie, Otchislen, DataZachisleniya, DataOtchislenya) "
+            "VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    b_query.addBindValue(Specialnost);
+    b_query.addBindValue(Formaobuch);
+    b_query.addBindValue(Obooso);
+    b_query.addBindValue(Kurs);
+    b_query.addBindValue(NumberOfGroup);
+    b_query.addBindValue(Budget);
+    b_query.addBindValue(AdresObshagi);
+    b_query.addBindValue(Pol);
+    b_query.addBindValue(Familia);
+    b_query.addBindValue(Imya);
+    b_query.addBindValue(Otchestvo);
+    b_query.addBindValue(DataRojdenia);
+    b_query.addBindValue(PassData);
+    b_query.addBindValue(SredniyBallPosleSchool);
+    b_query.addBindValue(Inyaz);
+    b_query.addBindValue(MobilniyTel);
+    b_query.addBindValue(Oblast);
+    b_query.addBindValue(Gorod);
+    b_query.addBindValue(Rayon);
+    b_query.addBindValue(AdresProjiv);
+    b_query.addBindValue(SredniyBall);
+    b_query.addBindValue(Celevik);
+    b_query.addBindValue(Roditeli);
+    b_query.addBindValue(MestoRaboty);
+    b_query.addBindValue(Ligoty);
+    b_query.addBindValue(Primechanie);
+    b_query.addBindValue(Otchislen);
+    b_query.addBindValue(DataZachisleniya);
+    b_query.addBindValue(DataOtchislenya);
+    b_query.exec();
+}

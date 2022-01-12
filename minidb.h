@@ -53,6 +53,12 @@ public:
 
     //Метод смены данных авторизации
     void changeAutorizeDataAdmin(QString login, QString password);
+
+    //Метод добавления данных по группам
+    void addDataGrup(QString Gruppa, QString Kurator, QString NomerCuratora, QString Starosta, QString NomerStarosty);
+
+    //Метод добавления данных о студенте
+    void addData(QString Specialnost, QString Formaobuch,QString Obooso,QString Kurs,QString NumberOfGroup,QString Budget,QString AdresObshagi,QString Pol,QString Familia,QString Imya,QString Otchestvo,QString DataRojdenia,QString PassData,QString SredniyBallPosleSchool,QString Inyaz,QString MobilniyTel,QString Oblast,QString Gorod,QString Rayon,QString AdresProjiv,QString SredniyBall,QString Celevik,QString Roditeli,QString MestoRaboty,QString Ligoty,QString Primechanie,QString Otchislen,QString DataZachisleniya,QString DataOtchislenya);
 };
 
 #endif // MINIDB_H

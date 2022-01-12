@@ -11,6 +11,15 @@
 //Библиотека для работы с LineEdit
 #include <QLineEdit>
 
+//Библиотека для работы с комбобоксами
+#include <QComboBox>
+
+//Библиотека для работы со спинбоксами
+#include <QDoubleSpinBox>
+
+//Библиотека для работы с dateEdit
+#include <QDateEdit>
+
 //Библиотека для скругления окна
 #include <QPainterPath>
 #include <QRect>
@@ -68,9 +77,12 @@ public:
     void styleConnectionWidget(QWidget *window, QPushButton *connect, QPushButton *connect2, QPushButton *refresh, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut);
     void styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit);
     void changePinCode(QWidget *window,QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina, QPushButton *nazad2);
-    void horizontalWidget(QWidget *window, QPushButton *first);
-    void nastroyki(QWidget *window,QPushButton *nazad, QPushButton *button, QPushButton *button2);
+    void horizontalWidget(QWidget *window, QPushButton *first, QPushButton *first1, QPushButton *first2);
+    void nastroyki(QWidget *window,QPushButton *nazad, QPushButton *button, QPushButton *button2, QPushButton *button3, QPushButton *button4);
     void changeAvtorization(QWidget *window, QPushButton *showPass, QPushButton *nazad, QPushButton *proverit, QPushButton *smenit, QLineEdit *login, QLineEdit *password);
+    void showDataWidget(QWidget *window, QPushButton *stud, QPushButton *grup, QPushButton *konteng, QPushButton *nazad);
+    void deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *search, QPushButton *createotch, QPushButton *nazad);
+    void addWidgetStyle(QWidget *window, QPushButton *nazad, QPushButton *addzapis, QLineEdit *familiya, QLineEdit *imya, QLineEdit *othcestvo, QLineEdit *passport, QLineEdit *adrespropiski, QLineEdit *telefon, QLineEdit *roditeli, QLineEdit *mestoraboty, QLineEdit *ligoty, QLineEdit *primechanie, QLineEdit *op, QComboBox *a, QComboBox *b, QComboBox *c,  QComboBox *d, QComboBox *e, QComboBox *f, QComboBox *g, QComboBox *h, QComboBox *i, QComboBox *j, QComboBox *k, QComboBox *l, QDateEdit *m,  QDateEdit *n, QDoubleSpinBox *o, QDoubleSpinBox *p);
 
     //Скрытие виджетов входа
     void enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con);
@@ -143,6 +155,21 @@ public:
 
     //Отблюривание виджета
     void unblurWidget(QWidget *window);
+
+    //Стиль виджета добавления
+    void styleAddWidget(QWidget *window, qint32 x, qint32 y);
+
+    //Метод стиля комбобокса
+    void styleCombobox(QComboBox *cmb);
+
+    //Метод стиля dateEdit
+    void styleDateEdit(QDateEdit *dte);
+
+    //Метод стиля doubleSpinBox
+    void styleDoubleSpin(QDoubleSpinBox *dsp);
+
+    //Стиль виджета добавления группы
+    void styleAddGruppa(QWidget *window, QPushButton *otmen, QPushButton *add, QLineEdit *gr, QLineEdit *kurator, QLineEdit *number, QLineEdit *star, QLineEdit *numstar);
 
 };
 

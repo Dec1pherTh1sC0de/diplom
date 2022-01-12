@@ -228,18 +228,20 @@ void metodClass::changePinCode(QWidget *window, QPushButton *nazad, QPushButton 
 }
 
 //Стиль горизонтального виджета
-void metodClass::horizontalWidget(QWidget *window, QPushButton *first)
+void metodClass::horizontalWidget(QWidget *window, QPushButton *first, QPushButton *first1, QPushButton *first2)
 {
     //Задание размеров виджета
      window->setGeometry(0,0,681,51);
 
      //Изменения стиля кнопки
      styleButton(first);
+     styleButton(first1);
+     styleButton(first2);
 
 }
 
 //Задание стиля виджета настроек
-void metodClass::nastroyki(QWidget *window, QPushButton *nazad, QPushButton *button, QPushButton *button2)
+void metodClass::nastroyki(QWidget *window, QPushButton *nazad, QPushButton *button, QPushButton *button2, QPushButton *button3, QPushButton *button4)
 {
     window->setGeometry(0,0,341,241);
 
@@ -248,6 +250,8 @@ void metodClass::nastroyki(QWidget *window, QPushButton *nazad, QPushButton *but
     //Изменения стиля кнопки входа
     styleButton(button);
     styleButton(button2);
+    styleButton(button3);
+    styleButton(button4);
 
     //Применение стиля кнопки назад
     styleTransparentButton(nazad, "icon/arrow-left.ico");
@@ -273,6 +277,86 @@ void metodClass::changeAvtorization(QWidget *window, QPushButton *showPass, QPus
 
     //Применение стиля кнопки назад, а так же передача пути картинки в метод
     styleTransparentButton(showPass, "icon/document-encrypt-2.ico");
+}
+
+//Виджет показа БД
+void metodClass::showDataWidget(QWidget *window, QPushButton *stud, QPushButton *grup, QPushButton *konteng, QPushButton *nazad)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(stud);
+    styleButton(grup);
+    styleButton(konteng);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+}
+
+//Метод стиля действий
+void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *search, QPushButton *createotch, QPushButton *nazad)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(add);
+    styleButton(addpust);
+    styleButton(del);
+    styleButton(search);
+    styleButton(createotch);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+}
+
+//Стиль виджета добавления студента
+void metodClass::addWidgetStyle(QWidget *window, QPushButton *nazad, QPushButton *addzapis, QLineEdit *familiya, QLineEdit *imya, QLineEdit *othcestvo, QLineEdit *passport, QLineEdit *adrespropiski, QLineEdit *telefon, QLineEdit *roditeli, QLineEdit *mestoraboty, QLineEdit *ligoty, QLineEdit *primechanie, QLineEdit *op, QComboBox *a, QComboBox *b, QComboBox *c,  QComboBox *d, QComboBox *e, QComboBox *f, QComboBox *g, QComboBox *h, QComboBox *i, QComboBox *j, QComboBox *k, QComboBox *l, QDateEdit *m,  QDateEdit *n, QDoubleSpinBox *o, QDoubleSpinBox *p)
+{
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопок
+    styleButton(nazad);
+    styleButton(addzapis);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(familiya);
+    styleLineEdit(imya);
+    styleLineEdit(othcestvo);
+    styleLineEdit(passport);
+    styleLineEdit(adrespropiski);
+    styleLineEdit(telefon);
+    styleLineEdit(roditeli);
+    styleLineEdit(mestoraboty);
+    styleLineEdit(ligoty);
+    styleLineEdit(primechanie);
+    styleLineEdit(op);
+
+    //Изменение стилей комбобокса
+    styleCombobox(a);
+    styleCombobox(b);
+    styleCombobox(c);
+    styleCombobox(d);
+    styleCombobox(e);
+    styleCombobox(f);
+    styleCombobox(g);
+    styleCombobox(h);
+    styleCombobox(i);
+    styleCombobox(j);
+    styleCombobox(k);
+    styleCombobox(l);
+
+    //Изменение стиля dateEdit
+    styleDateEdit(m);
+    styleDateEdit(n);
+
+    //Изменение стиля doubleSpin
+    styleDoubleSpin(o);
+    styleDoubleSpin(p);
+
 }
 
 //Скрытие виджетов входа
@@ -543,4 +627,56 @@ void metodClass::unblurWidget(QWidget *window)
     QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
     blur->setBlurRadius(0);
     window->setGraphicsEffect(blur);
+}
+
+//Стиль виджета добавления
+void metodClass::styleAddWidget(QWidget *window, qint32 x, qint32 y)
+{
+    window->setGeometry(10,53,x -20,y -62);
+}
+
+//Метод стиля комбобокса
+void metodClass::styleCombobox(QComboBox *cmb)
+{
+    cmb->setStyleSheet
+            (
+                "QComboBox{background-color: #EEEEEE; border-style: outset; border-width: 0px; border-radius: 0px; border-color: beige; font: 12px;}"
+            );
+}
+
+//Метод стиля dateEdit
+void metodClass::styleDateEdit(QDateEdit *dte)
+{
+    dte->setStyleSheet
+            (
+                "QDateEdit{background-color: #EEEEEE; border-style: outset; border-width: 0px; border-radius: 0px; border-color: beige; font: 12px;}"
+            );
+}
+
+//Метод стиля doubleSpinBox
+void metodClass::styleDoubleSpin(QDoubleSpinBox *dsp)
+{
+    dsp->setStyleSheet
+            (
+                "QDoubleSpinBox{background-color: #EEEEEE; border-style: outset; border-width: 0px; border-radius: 0px; border-color: beige; font: 12px;}"
+            );
+}
+
+//Виджет добавления группы
+void metodClass::styleAddGruppa(QWidget *window, QPushButton *otmen, QPushButton *add, QLineEdit *gr, QLineEdit *kurator, QLineEdit *number, QLineEdit *star, QLineEdit *numstar)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопок
+    styleButton(otmen);
+    styleButton(add);
+
+    //Изменение стилей LineEdit
+    styleLineEdit(gr);
+    styleLineEdit(kurator);
+    styleLineEdit(number);
+    styleLineEdit(star);
+    styleLineEdit(numstar);
 }

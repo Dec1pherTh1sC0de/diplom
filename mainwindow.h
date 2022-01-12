@@ -74,6 +74,8 @@ public:
     QSqlQuery *query;
     QSqlTableModel *model;
 
+    int row;//Номер активной строки
+
     //Выбор модели таблицы пинкод
     void modelPin();
 
@@ -82,6 +84,40 @@ public:
 
     //Выбор модели таблицы авторизации
     void modelAutorize();
+
+    //Выбор модели специальности
+    void modelSpecialnost();
+
+    //Выбор модели для общежитий
+    void modelObshaga();
+
+    //Выбор модели для ин.яз
+    void modelInyaz();
+
+    //Выбираем модель формы обучения
+    void modelForma();
+
+    //Выбираем модель Обоосо
+    void modelObo();
+
+    //Выбор модели курса
+    void modelKurs();
+
+    //Выбор модели бюджета
+    void modeelBudget();
+
+    //Выбор модели пола
+    void modelPol();
+
+    //Выбор модели целевика
+    void modelCelevik();
+
+    //Выбор модели ученики
+    void modelYchenik();
+
+    //Какая таблица выбранна 1-ученики, 2-грууппы.
+    int tablica;
+
 
 private slots:
 
@@ -122,5 +158,22 @@ private slots:
     void on_ShowPassButton_2_released();
     void on_EnterPushButton_2_clicked();
     void on_EnterPushButton_3_clicked();
+    void on_EnableRedaktion_clicked();
+    void on_DisableRedaktion_2_clicked();
+    void on_Dannye_clicked();
+    void on_NazadKNastroykam_2_clicked();
+    void on_StudentButton_clicked();
+    void on_StudentButton_2_clicked();
+    void on_StudentButton_3_clicked();
+    void on_Dobavit_clicked();
+    void on_DeleteZapis_clicked();
+    void on_NazadKNastroykam_3_clicked();
+    void on_Dannye_2_clicked();
+    void on_pushButton_8_clicked();
+    void on_comboBox_9_currentIndexChanged(int index);
+    void on_pushButton_7_clicked();
+    void on_DobaviStroku_clicked();
+    void on_pushButton_9_clicked();
+    void on_pushButton_10_clicked();
 };
 #endif // MAINWINDOW_H
