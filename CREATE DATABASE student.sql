@@ -62,9 +62,10 @@ CREATE TABLE celevik
 	Id int,
     Celevik varchar(10)
 );
+
 CREATE TABLE ycheniki
 (
-    Id INT,
+    Id int,
     Specialnost VARCHAR(100),
     Formaobuch VARCHAR(20),
     Obooso VARCHAR (10),
@@ -98,24 +99,18 @@ CREATE TABLE ycheniki
 
 CREATE TABLE kontengent
 (
-Id INT,
-Gruppa VARCHAR (10),
-VsegoGirl INT,
-VsegoBoy INT,
-VsegoNesovershen INT,
-Vsego INT,
-Platniki INT,
-Cheleviki INT,
-Budjetniki INT,
-VipuskPllatniki INT,
-VipuskBudjetniki INT,
-VipuskCheleviki INT,
-DataVipuska VARCHAR (10)
+Id int,
+VsegoGirl VARCHAR (10),
+VsegoBoy VARCHAR (10),
+Vsego VARCHAR (10),
+Platniki VARCHAR (10),
+Cheleviki VARCHAR (10),
+Budjetniki VARCHAR (10)
 );
 
 CREATE TABLE gruppy
 (
-Id INT,
+Id int,
 Gruppa VARCHAR (10),
 Kurator VARCHAR (50),
 NomerCuratora VARCHAR (20),
@@ -126,7 +121,6 @@ NomerStarosty VARCHAR (20)
 INSERT autorize (Id, Login, Pass) 
 VALUES
 (0,'19df4fbc3a','19df4fbc3a');
-
 
 INSERT inyaz (Id, Yazik) 
 VALUES

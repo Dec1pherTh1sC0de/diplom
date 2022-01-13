@@ -77,12 +77,14 @@ public:
     void styleConnectionWidget(QWidget *window, QPushButton *connect, QPushButton *connect2, QPushButton *refresh, QLineEdit *Bdname, QLineEdit *host, QLineEdit *user, QLineEdit *pass, QPushButton *close, QPushButton *goToAut);
     void styleBlockWindowWidget(QWidget *window, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit);
     void changePinCode(QWidget *window,QPushButton *nazad, QPushButton *enter, QPushButton *showPass, QLineEdit *lineEdit, QPushButton *smenapina, QPushButton *nazad2);
-    void horizontalWidget(QWidget *window, QPushButton *first, QPushButton *first1, QPushButton *first2);
+    void horizontalWidget(QWidget *window, QPushButton *first, QPushButton *first1, QPushButton *first2, QLineEdit *line);
     void nastroyki(QWidget *window,QPushButton *nazad, QPushButton *button, QPushButton *button2, QPushButton *button3, QPushButton *button4);
     void changeAvtorization(QWidget *window, QPushButton *showPass, QPushButton *nazad, QPushButton *proverit, QPushButton *smenit, QLineEdit *login, QLineEdit *password);
     void showDataWidget(QWidget *window, QPushButton *stud, QPushButton *grup, QPushButton *konteng, QPushButton *nazad);
-    void deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *search, QPushButton *createotch, QPushButton *nazad);
+    void deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *createotch, QPushButton *nazad, QPushButton *d);
     void addWidgetStyle(QWidget *window, QPushButton *nazad, QPushButton *addzapis, QLineEdit *familiya, QLineEdit *imya, QLineEdit *othcestvo, QLineEdit *passport, QLineEdit *adrespropiski, QLineEdit *telefon, QLineEdit *roditeli, QLineEdit *mestoraboty, QLineEdit *ligoty, QLineEdit *primechanie, QLineEdit *op, QComboBox *a, QComboBox *b, QComboBox *c,  QComboBox *d, QComboBox *e, QComboBox *f, QComboBox *g, QComboBox *h, QComboBox *i, QComboBox *j, QComboBox *k, QComboBox *l, QDateEdit *m,  QDateEdit *n, QDoubleSpinBox *o, QDoubleSpinBox *p);
+    void styleOthicslit(QWidget *window, QDateEdit *date, QLineEdit *line, QPushButton *btn, QPushButton *nazad);
+    void stylePerevod(QWidget *window, QDateEdit *date, QComboBox *spec, QComboBox *formobuch, QComboBox *kurs, QComboBox *budget, QLineEdit *grupp,QLineEdit *line, QLineEdit *a, QLineEdit *b, QLineEdit *c, QLineEdit *d, QLineEdit *e, QPushButton *perevod, QPushButton *nazad);
 
     //Скрытие виджетов входа
     void enterWidgetHide(QWidget *pin, QWidget *aut, QWidget *con);

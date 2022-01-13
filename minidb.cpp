@@ -128,8 +128,8 @@ void miniDB::addData(QString Specialnost, QString Formaobuch, QString Obooso, QS
 {
     //Вставка новых данных
     QSqlQuery b_query;
-    b_query.prepare("INSERT INTO ycheniki (Id, Specialnost, Formaobuch, Obooso, Kurs, NumberOfGroup, Budget, AdresObshagi, Pol, Familia, Imya, Otchestvo, DataRojdenia, PassData, SredniyBallPosleSchool, Inyaz, MobilniyTel, Oblast, Gorod, Rayon, AdresProjiv, SredniyBall, Celevik, Roditeli, MestoRaboty, Ligoty, Primechanie, Otchislen, DataZachisleniya, DataOtchislenya) "
-            "VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    b_query.prepare("INSERT INTO ycheniki (Specialnost, Formaobuch, Obooso, Kurs, NumberOfGroup, Budget, AdresObshagi, Pol, Familia, Imya, Otchestvo, DataRojdenia, PassData, SredniyBallPosleSchool, Inyaz, MobilniyTel, Oblast, Gorod, Rayon, AdresProjiv, SredniyBall, Celevik, Roditeli, MestoRaboty, Ligoty, Primechanie, Otchislen, DataZachisleniya, DataOtchislenya) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     b_query.addBindValue(Specialnost);
     b_query.addBindValue(Formaobuch);
     b_query.addBindValue(Obooso);
@@ -159,5 +159,25 @@ void miniDB::addData(QString Specialnost, QString Formaobuch, QString Obooso, QS
     b_query.addBindValue(Otchislen);
     b_query.addBindValue(DataZachisleniya);
     b_query.addBindValue(DataOtchislenya);
+    b_query.exec();
+}
+
+//Подсчет контингента
+void miniDB::addKontengent(QString a, QString b, QString d, QString e, QString f, QString g)
+{
+    //Удаление старых данных
+    QSqlQuery a_query;
+    a_query.exec("DELETE FROM kontengent");
+
+    //Вставка новых данных
+    QSqlQuery b_query;
+    b_query.prepare("INSERT INTO kontengent (Id, VsegoGirl, VsegoBoy, Vsego, Platniki, Cheleviki, Budjetniki) "
+            "VALUES (null, ?, ?, ?, ?, ?, ?)");
+    b_query.addBindValue(a);
+    b_query.addBindValue(b);
+    b_query.addBindValue(d);
+    b_query.addBindValue(e);
+    b_query.addBindValue(f);
+    b_query.addBindValue(g);
     b_query.exec();
 }

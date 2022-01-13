@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>2455</width>
-    <height>807</height>
+    <height>1095</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -556,7 +556,7 @@
       <rect>
        <x>0</x>
        <y>10</y>
-       <width>171</width>
+       <width>80</width>
        <height>25</height>
       </rect>
      </property>
@@ -570,9 +570,9 @@
     <widget class="QPushButton" name="Dannye_2">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>90</x>
        <y>10</y>
-       <width>171</width>
+       <width>80</width>
        <height>25</height>
       </rect>
      </property>
@@ -581,6 +581,16 @@
      </property>
      <property name="text">
       <string>Действия</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_25">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>10</y>
+       <width>113</width>
+       <height>25</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -1491,6 +1501,9 @@
      <property name="cursor">
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
+     <property name="displayFormat">
+      <string>dd.MM.yyyy</string>
+     </property>
     </widget>
     <widget class="QComboBox" name="comboBox_5">
      <property name="geometry">
@@ -1645,6 +1658,9 @@
      </property>
      <property name="cursor">
       <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="displayFormat">
+      <string>dd.MM.yyyy</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_37">
@@ -2052,22 +2068,6 @@
       <string>Удалить запись</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="StudentButton_6">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>170</y>
-       <width>291</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="text">
-      <string>Найти запись</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="DobaviStroku">
      <property name="geometry">
       <rect>
@@ -2084,7 +2084,23 @@
       <string>Добавить пустую запись</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="StudentButton_7">
+    <widget class="QPushButton" name="StudentButton_8">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>170</y>
+       <width>291</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Перевести</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="StudentButton_9">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -2097,7 +2113,7 @@
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
-      <string>Создать отчет</string>
+      <string>Отчислить</string>
      </property>
     </widget>
    </widget>
@@ -2258,6 +2274,414 @@
      </property>
      <property name="text">
       <string>Добавить</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Otchislenie" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1390</x>
+      <y>600</y>
+      <width>341</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <widget class="QLabel" name="label_54">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>50</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Отчисление</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="NazadKNastroykam_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_45">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Дата отчисления</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_46">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер приказа</string>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>90</y>
+       <width>141</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="displayFormat">
+      <string>dd.MM.yyyy</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_17">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>130</y>
+       <width>141</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="StudentButton_10">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>190</y>
+       <width>291</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Отчислить</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Perevod" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1730</x>
+      <y>620</y>
+      <width>651</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <widget class="QLabel" name="label_55">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>40</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Перевод</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="NazadKNastroykam_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_57">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Дата перевода</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_58">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер приказа</string>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>90</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="displayFormat">
+      <string>dd.MM.yyyy</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_18">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>120</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="StudentButton_11">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>310</y>
+       <width>601</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Перевести</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_59">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Специальность</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_60">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Форма обучения</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_61">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>81</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Курс</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_62">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>240</y>
+       <width>91</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Группа</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_63">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>270</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>БюджетКомерч</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_12">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>150</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_14">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>180</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_15">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>210</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_19">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>240</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_16">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>270</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_64">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>120</y>
+       <width>121</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Старые значения</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_20">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>150</y>
+       <width>301</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_21">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>180</y>
+       <width>301</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_22">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>210</y>
+       <width>301</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_23">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>240</y>
+       <width>301</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_24">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>270</y>
+       <width>301</width>
+       <height>25</height>
+      </rect>
      </property>
     </widget>
    </widget>

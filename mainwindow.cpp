@@ -23,7 +23,7 @@ mtdcls->styleConnectionWidget(this->ui->ConnectionWidget,this->ui->ConnectBDButt
 mtdcls->styleBlockWindowWidget(this->ui->BlockWindow,this->ui->EnterPinCodePushButton_2,this->ui->ShowPinButton_2,this->ui->PinCodeLineEdit_2);
 
 //Задание стиля HorizontalWidget
-mtdcls->horizontalWidget(this->ui->HorizontalWidget, this->ui->SettingButton, this->ui->Dannye, this->ui->Dannye_2);
+mtdcls->horizontalWidget(this->ui->HorizontalWidget, this->ui->SettingButton, this->ui->Dannye, this->ui->Dannye_2, this->ui->lineEdit_25);
 
 //Задание стиля виджету смены пинкода
 mtdcls->changePinCode(this->ui->ChangePinCode,this->ui->NazadIzNastroek_2,this->ui->EnterPinCodePushButton_3,this->ui->ShowPinButton_3,this->ui->PinCodeLineEdit_3, this->ui->EnterPinCodePushButton_4, this->ui->NazadIzNastroek_3);
@@ -53,7 +53,7 @@ this->ui->Deystviya->hide();
 mtdcls->showDataWidget(this->ui->ShowData,this->ui->StudentButton, this->ui->StudentButton_2, this->ui->StudentButton_3, this->ui->NazadKNastroykam_2);
 
 //Задание стиля виджету действий
-mtdcls->deystviyaWidget(this->ui->Deystviya,this->ui->DeleteZapis, this->ui->Dobavit, this->ui->DobaviStroku, this->ui->StudentButton_6, this->ui->StudentButton_7, this->ui->NazadKNastroykam_3);
+mtdcls->deystviyaWidget(this->ui->Deystviya,this->ui->DeleteZapis, this->ui->Dobavit, this->ui->DobaviStroku, this->ui->StudentButton_8, this->ui->NazadKNastroykam_3, this->ui->StudentButton_9);
 
 //Задание стиля виджету добавления
 mtdcls->addWidgetStyle(this->ui->AddStudent,this->ui->pushButton_7, this->ui->pushButton_8, this->ui->lineEdit, this->ui->lineEdit_10, this->ui->lineEdit_11, this->ui->lineEdit_2, this->ui->lineEdit_3, this->ui->lineEdit_4, this->ui->lineEdit_5, this->ui->lineEdit_6, this->ui->lineEdit_7, this->ui->lineEdit_8, this->ui->lineEdit_9, this->ui->comboBox, this->ui->comboBox_2, this->ui->comboBox_3, this->ui->comboBox_4, this->ui->comboBox_5, this->ui->comboBox_6, this->ui->comboBox_7, this->ui->comboBox_8, this->ui->comboBox_9, this->ui->comboBox_10, this->ui->comboBox_11, this->ui->comboBox_13, this->ui->dateEdit, this->ui->dateEdit_4, this->ui->doubleSpinBox, this->ui->doubleSpinBox_2);
@@ -64,6 +64,17 @@ mtdcls->styleAddGruppa(this->ui->AddGruppa, this->ui->pushButton_9, this->ui->pu
 //Скрытие виджета добавления группы
 this->ui->AddGruppa->hide();
 
+//Скрытие виджета отчисления
+this->ui->Otchislenie->hide();
+
+//Задание стияля виджету отчисления
+mtdcls->styleOthicslit(this->ui->Otchislenie, this->ui->dateEdit_5, this->ui->lineEdit_17, this->ui->StudentButton_10, this->ui->NazadKNastroykam_4);
+
+//Скрытие виджета перевода
+this->ui->Perevod->hide();
+
+//Задание стиля виджету перевода
+mtdcls->stylePerevod(this->ui->Perevod, this->ui->dateEdit_6, this->ui->comboBox_12, this->ui->comboBox_14, this->ui->comboBox_15, this->ui->comboBox_16, this->ui->lineEdit_18, this->ui->lineEdit_19, this->ui->lineEdit_20, this->ui->lineEdit_21, this->ui->lineEdit_22, this->ui->lineEdit_23, this->ui->lineEdit_24, this->ui->StudentButton_11, this->ui->NazadKNastroykam_5);
 }
 
 MainWindow::~MainWindow()
@@ -1050,6 +1061,90 @@ void MainWindow::on_StudentButton_2_clicked()
 //Показ контингента
 void MainWindow::on_StudentButton_3_clicked()
 {
+    //Подключаем БД
+    QString a =  mindb->database(this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit);
+    if(a == "1")
+    {
+        //Отображение таблицы
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("ycheniki");
+        model->select();
+
+        //Переменные принимающие значения из запросов
+        QString girl;
+        QString boy;
+        QString vsego;
+        QString platniki;
+        QString cheleviki;
+        QString budget;
+
+        //Количество всех девушек
+        QSqlQuery a_query;
+        a_query.prepare("SELECT COUNT(*) FROM ycheniki WHERE Pol='Ж'");
+        a_query.exec();
+        if (a_query.next()) {
+            girl = a_query.value(0).toString();
+        }
+
+        //Количество всех парней
+        QSqlQuery b_query;
+        b_query.prepare("SELECT COUNT(*) FROM ycheniki WHERE Pol='М'");
+        b_query.exec();
+        if (b_query.next()) {
+            boy = b_query.value(0).toString();
+        }
+
+        //Количество всех
+        QSqlQuery c1_query;
+        c1_query.prepare("SELECT COUNT(*) FROM ycheniki WHERE Otchislen=''");
+        c1_query.exec();
+        if (c1_query.next()) {
+            vsego = c1_query.value(0).toString();
+        }
+
+        //Количество платников
+        QSqlQuery d_query;
+        d_query.prepare("SELECT COUNT(*) FROM ycheniki WHERE Budget='Комерч'");
+        d_query.exec();
+        if (d_query.next()) {
+            platniki = d_query.value(0).toString();
+        }
+
+        //Количество целевиков
+        QSqlQuery e_query;
+        e_query.prepare("SELECT COUNT(*) FROM ycheniki WHERE Celevik='Да'");
+        e_query.exec();
+        if (e_query.next()) {
+            cheleviki = e_query.value(0).toString();
+        }
+
+        //Количество бюджетников
+        QSqlQuery f_query;
+        f_query.prepare("SELECT COUNT(*) FROM ycheniki WHERE Budget='Бюджет'");
+        f_query.exec();
+        if (f_query.next()) {
+            budget = f_query.value(0).toString();
+        }
+
+        //Отображение таблицы
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("kontengent");
+        model->select();
+
+        //Запись данных о контингенте
+        mindb->addKontengent(girl, boy, vsego, platniki, cheleviki, budget);
+
+
+    }
+
+    //Отображение таблицы
+    model = new QSqlTableModel(this,sdb);
+    model->setTable("kontengent");
+    model->select();
+    ui->tableView->setModel(model);
+
+    tablica = 3;
+
     //Скрытие виджета
     this->ui->ShowData->hide();
     this->ui->FillWindow->hide();
@@ -1281,7 +1376,7 @@ void MainWindow::on_Dannye_2_clicked()
     this->ui->Deystviya->raise();
 
     //Центрирование виджета
-    mtdcls->centerWidget(this->width(),this->height(),this->ui->Deystviya);
+    this->ui->Deystviya->setGeometry((this->width()*0.5)-170.5,(this->height()*0.5)-120.5,341,241);
 }
 
 //Отмена добавления
@@ -1807,6 +1902,331 @@ void MainWindow::on_pushButton_10_clicked()
         model->setTable("gruppy");
         model->select();
         ui->tableView->setModel(model);
+    }
+}
+
+//Отчисление студента
+void MainWindow::on_StudentButton_9_clicked()
+{
+    //Заполнение окна
+    this->ui->FillWindow->show();
+    this->ui->FillWindow->setStyleSheet("background-color: #212121; border-style: outset; border-width: 0px; border-radius: 10px;");
+    this->ui->FillWindow->setGeometry(0,0,this->width(),this->height());
+
+    //Скрытие виджета действий
+    this->ui->Deystviya->hide();
+
+    //Вызов виджета
+    this->ui->Otchislenie->show();
+
+    //Поднятие виджета на передний план
+    this->ui->Otchislenie->raise();
+
+    //Центрирование виджета
+    mtdcls->centerWidget(this->width(), this->height(), this->ui->Otchislenie);
+}
+
+//Назад из отчисления
+void MainWindow::on_NazadKNastroykam_4_clicked()
+{
+    //Отчистка полей
+    this->ui->lineEdit_17->clear();
+    this->ui->dateEdit_5->clear();
+
+    //Скрытие элементов
+    this->ui->Otchislenie->hide();
+    this->ui->Deystviya->show();
+    this->ui->Deystviya->raise();
+}
+
+//Отчисление студента
+void MainWindow::on_StudentButton_10_clicked()
+{
+    //Удаление данных из таблицы учеников
+    if(tablica == 1)
+    {
+        //Получение данных из колонок выделенной строки строки
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("ycheniki");
+        model->select();
+                QString a1 = model->data(model->index(this->ui->tableView->currentIndex().row(), 1)).toString();
+                QString a2 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 2)).toString();
+                QString a3 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 3)).toString();
+                QString a4 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 4)).toString();
+                QString a5 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 5)).toString();
+                QString a6 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 6)).toString();
+                QString a7 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 7)).toString();
+                QString a8 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 8)).toString();
+                QString a9 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 9)).toString();
+                QString a10 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 10)).toString();
+                QString a11 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 11)).toString();
+                QString a12 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 12)).toString();
+                QString a13 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 13)).toString();
+                QString a14 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 14)).toString();
+                QString a15 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 15)).toString();
+                QString a16 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 16)).toString();
+                QString a17 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 17)).toString();
+                QString a18 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 18)).toString();
+                QString a19 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 19)).toString();
+                QString a20 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 20)).toString();
+                QString a21 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 21)).toString();
+                QString a22 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 22)).toString();
+                QString a23 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 23)).toString();
+                QString a24 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 24)).toString();
+                QString a25 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 25)).toString();
+                QString a26 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 26)).toString();
+                QString a28 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 28)).toString();
+
+                //Удаление
+                model = new QSqlTableModel(this,sdb);
+                model->setTable("ycheniki");
+                model->select();
+                model->removeRow(this->ui->tableView->currentIndex().row());
+
+                //Обновление таблицы
+                model->submitAll();
+
+                //Вставка данных
+                mindb->addData(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26 + " Номер приказа:" + this->ui->lineEdit_17->text(), "Да", a28, this->ui->dateEdit_5->text());
+
+                //Отображение данных
+                model->select();
+                this->ui->tableView->setModel(model);
+
+                //Отчистка полей
+                this->ui->lineEdit_17->clear();
+                this->ui->dateEdit_5->clear();
+
+        //Назад к программе
+        this->ui->Otchislenie->hide();
+        this->ui->FillWindow->hide();
+    }
+}
+
+//Перевод студента
+void MainWindow::on_StudentButton_8_clicked()
+{
+    //Заполнение полей данными из БД
+    if(tablica == 1)
+    {
+        //Заполнение окна
+        this->ui->FillWindow->show();
+        this->ui->FillWindow->setStyleSheet("background-color: #212121; border-style: outset; border-width: 0px; border-radius: 10px;");
+        this->ui->FillWindow->setGeometry(0,0,this->width(),this->height());
+
+        //Скрытие виджета действий
+        this->ui->Deystviya->hide();
+
+        //Вызов виджета
+        this->ui->Perevod->show();
+
+        //Поднятие виджета на передний план
+        this->ui->Perevod->raise();
+
+        //Центрирование виджета
+        this->ui->Perevod->setGeometry((this->width()*0.5)-325,(this->height()*0.5)-170,651,351);
+
+        //Выбираем таблицу для модели
+        modelSpecialnost();
+        //Специальности
+        QSqlQuery query("SELECT Specialnost FROM specialnost", sdb);
+        if(query.isActive())
+        {
+           while(query.next())
+            {
+               this->ui->comboBox_12->addItem(query.value(0).toString());
+            }
+        }
+
+        //Выбираем таблицу для модели
+        modelForma();
+        //Форма обучения
+        QSqlQuery query3("SELECT Formaobuch FROM formaobuch", sdb);
+        if(query3.isActive())
+        {
+           while(query3.next())
+            {
+               this->ui->comboBox_14->addItem(query3.value(0).toString());
+            }
+        }
+
+        //Выбираем таблицу для модели
+        modelKurs();
+        //Курс
+        QSqlQuery query5("SELECT Kurs FROM kurs", sdb);
+        if(query5.isActive())
+        {
+           while(query5.next())
+            {
+               this->ui->comboBox_15->addItem(query5.value(0).toString());
+            }
+        }
+
+        //Выбираем таблицу для модели
+        modeelBudget();
+        //Бюджет или комерч
+        QSqlQuery query6("SELECT Budjet FROM budjet", sdb);
+        if(query6.isActive())
+        {
+           while(query6.next())
+            {
+               this->ui->comboBox_16->addItem(query6.value(0).toString());
+            }
+        }
+
+        //Получение данных из колонок выделенной строки строки
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("ycheniki");
+        model->select();
+
+                QString a1 = model->data(model->index(this->ui->tableView->currentIndex().row(), 1)).toString();
+                QString a2 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 2)).toString();
+                QString a4 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 4)).toString();
+                QString a5 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 5)).toString();
+                QString a6 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 6)).toString();
+
+                //Заполняем этими данными поля
+                this->ui->lineEdit_20->setText(a1);
+                this->ui->lineEdit_21->setText(a2);
+                this->ui->lineEdit_22->setText(a4);
+                this->ui->lineEdit_23->setText(a5);
+                this->ui->lineEdit_24->setText(a6);
+    }
+}
+
+//Назад из перевода
+void MainWindow::on_NazadKNastroykam_5_clicked()
+{
+    //Отчистка полей
+    this->ui->lineEdit_18->clear();
+    this->ui->lineEdit_19->clear();
+    this->ui->lineEdit_20->clear();
+    this->ui->lineEdit_21->clear();
+    this->ui->lineEdit_22->clear();
+    this->ui->lineEdit_23->clear();
+    this->ui->lineEdit_24->clear();
+    this->ui->dateEdit_6->clear();
+    this->ui->comboBox_12->clear();
+    this->ui->comboBox_14->clear();
+    this->ui->comboBox_15->clear();
+    this->ui->comboBox_16->clear();
+
+    //Скрытие виджета действий
+    this->ui->Perevod->hide();
+
+    //Вызов виджета
+    this->ui->Deystviya->show();
+
+    //Поднятие виджета на передний план
+    this->ui->Deystviya->raise();
+}
+
+//Перевести студента
+void MainWindow::on_StudentButton_11_clicked()
+{
+    //Удаление данных из таблицы учеников
+    if(tablica == 1)
+    {
+        //Получение данных из колонок выделенной строки строки
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("ycheniki");
+        model->select();
+                QString a3 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 3)).toString();
+                QString a7 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 7)).toString();
+                QString a8 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 8)).toString();
+                QString a9 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 9)).toString();
+                QString a10 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 10)).toString();
+                QString a11 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 11)).toString();
+                QString a12 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 12)).toString();
+                QString a13 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 13)).toString();
+                QString a14 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 14)).toString();
+                QString a15 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 15)).toString();
+                QString a16 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 16)).toString();
+                QString a17 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 17)).toString();
+                QString a18 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 18)).toString();
+                QString a19 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 19)).toString();
+                QString a20 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 20)).toString();
+                QString a21 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 21)).toString();
+                QString a22 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 22)).toString();
+                QString a23 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 23)).toString();
+                QString a24 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 24)).toString();
+                QString a25 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 25)).toString();
+                QString a26 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 26)).toString();
+                QString a27 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 27)).toString();
+                QString a28 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 28)).toString();
+                QString a29 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 29)).toString();
+
+                //Удаление
+                model = new QSqlTableModel(this,sdb);
+                model->setTable("ycheniki");
+                model->select();
+                model->removeRow(this->ui->tableView->currentIndex().row());
+
+                //Обновление таблицы
+                model->submitAll();
+
+                //Вставка данных
+                mindb->addData(this->ui->comboBox_12->currentText(),this->ui->comboBox_14->currentText(),a3,this->ui->comboBox_15->currentText(),this->ui->lineEdit_19->text(),this->ui->comboBox_16->currentText(),a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26 + "  |Номер приказа:" + this->ui->lineEdit_18->text() + "|" + "  Дата перевода:" + this->ui->dateEdit_6->text() + "|", a27, a28, a29);
+
+                //Отображение данных
+                model->select();
+                this->ui->tableView->setModel(model);
+
+                //Отчистка полей
+                this->ui->lineEdit_18->clear();
+                this->ui->lineEdit_19->clear();
+                this->ui->lineEdit_20->clear();
+                this->ui->lineEdit_21->clear();
+                this->ui->lineEdit_22->clear();
+                this->ui->lineEdit_23->clear();
+                this->ui->lineEdit_24->clear();
+                this->ui->dateEdit_6->clear();
+                this->ui->comboBox_12->clear();
+                this->ui->comboBox_14->clear();
+                this->ui->comboBox_15->clear();
+                this->ui->comboBox_16->clear();
+
+        //Назад к программе
+        this->ui->Otchislenie->hide();
+        this->ui->FillWindow->hide();
+    }
+}
+
+//Поиск
+void MainWindow::on_lineEdit_25_textEdited(const QString &arg1)
+{
+    //Поиск по ученикам
+    if(tablica == 1)
+    {
+        //Подключение к БД
+            model = new QSqlTableModel(this,sdb);
+            //Указываем таблицу
+            model->setTable("ycheniki");
+            model->select();
+            QSortFilterProxyModel *proxy_model = new QSortFilterProxyModel();
+            ui->tableView->setModel(proxy_model);
+            proxy_model->setSourceModel(model);
+            //Выбираем номер столбца для поиска, если же стоит значение -1, то будут выбранны все столбцы
+            proxy_model->setFilterKeyColumn(-1);
+            //Указываем значение для поиска, в нашем случае это переменная arg1
+            proxy_model->setFilterFixedString(arg1);
+    }
+
+    //Поиск по группам
+    if(tablica == 2)
+    {
+        //Подключение к БД
+            model = new QSqlTableModel(this,sdb);
+            //Указываем таблицу
+            model->setTable("gruppy");
+            model->select();
+            QSortFilterProxyModel *proxy_model = new QSortFilterProxyModel();
+            ui->tableView->setModel(proxy_model);
+            proxy_model->setSourceModel(model);
+            //Выбираем номер столбца для поиска, если же стоит значение -1, то будут выбранны все столбцы
+            proxy_model->setFilterKeyColumn(-1);
+            //Указываем значение для поиска, в нашем случае это переменная arg1
+            proxy_model->setFilterFixedString(arg1);
     }
 }
 

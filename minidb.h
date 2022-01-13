@@ -59,6 +59,9 @@ public:
 
     //Метод добавления данных о студенте
     void addData(QString Specialnost, QString Formaobuch,QString Obooso,QString Kurs,QString NumberOfGroup,QString Budget,QString AdresObshagi,QString Pol,QString Familia,QString Imya,QString Otchestvo,QString DataRojdenia,QString PassData,QString SredniyBallPosleSchool,QString Inyaz,QString MobilniyTel,QString Oblast,QString Gorod,QString Rayon,QString AdresProjiv,QString SredniyBall,QString Celevik,QString Roditeli,QString MestoRaboty,QString Ligoty,QString Primechanie,QString Otchislen,QString DataZachisleniya,QString DataOtchislenya);
+
+    //Добавление контенгента
+    void addKontengent(QString a, QString b, QString d, QString e, QString f, QString g);
 };
 
 #endif // MINIDB_H

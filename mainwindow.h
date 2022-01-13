@@ -175,5 +175,12 @@ private slots:
     void on_DobaviStroku_clicked();
     void on_pushButton_9_clicked();
     void on_pushButton_10_clicked();
+    void on_StudentButton_9_clicked();
+    void on_NazadKNastroykam_4_clicked();
+    void on_StudentButton_10_clicked();
+    void on_StudentButton_8_clicked();
+    void on_NazadKNastroykam_5_clicked();
+    void on_StudentButton_11_clicked();
+    void on_lineEdit_25_textEdited(const QString &arg1);
 };
 #endif // MAINWINDOW_H

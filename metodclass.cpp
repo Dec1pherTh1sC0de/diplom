@@ -10,10 +10,10 @@ void metodClass::styleButton(QPushButton *button)
 {
     button->setStyleSheet
             (
-                "QPushButton{background-color: #00CED7; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px; min-width: 10em;}"
-                "QPushButton:hover{background: #6BF4FF; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px; min-width: 10em;}"
-                "QPushButton:pressed{background-color: #00ADB5; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px; min-width: 10em;}"
-                "QPushButton:released{background-color: #00CED7; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px; min-width: 10em;}"
+                "QPushButton{background-color: #00CED7; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px;}"
+                "QPushButton:hover{background: #6BF4FF; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px;}"
+                "QPushButton:pressed{background-color: #00ADB5; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px;}"
+                "QPushButton:released{background-color: #00CED7; border-style: outset; border-width: 0px; border-radius: 10px; border-color: beige; font: bold 12px;}"
             );
 }
 
@@ -228,7 +228,7 @@ void metodClass::changePinCode(QWidget *window, QPushButton *nazad, QPushButton 
 }
 
 //Стиль горизонтального виджета
-void metodClass::horizontalWidget(QWidget *window, QPushButton *first, QPushButton *first1, QPushButton *first2)
+void metodClass::horizontalWidget(QWidget *window, QPushButton *first, QPushButton *first1, QPushButton *first2, QLineEdit *line)
 {
     //Задание размеров виджета
      window->setGeometry(0,0,681,51);
@@ -238,6 +238,8 @@ void metodClass::horizontalWidget(QWidget *window, QPushButton *first, QPushButt
      styleButton(first1);
      styleButton(first2);
 
+     //Изменение стилей LineEdit
+     styleLineEdit(line);
 }
 
 //Задание стиля виджета настроек
@@ -296,9 +298,9 @@ void metodClass::showDataWidget(QWidget *window, QPushButton *stud, QPushButton 
 }
 
 //Метод стиля действий
-void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *search, QPushButton *createotch, QPushButton *nazad)
+void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *createotch, QPushButton *nazad, QPushButton *d)
 {
-    window->setGeometry(0,0,341,241);
+    window->setGeometry(0,0,341,341);
 
     window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
 
@@ -306,8 +308,8 @@ void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton 
     styleButton(add);
     styleButton(addpust);
     styleButton(del);
-    styleButton(search);
     styleButton(createotch);
+    styleButton(d);
 
     //Применение стиля кнопки назад
     styleTransparentButton(nazad, "icon/arrow-left.ico");
@@ -357,6 +359,56 @@ void metodClass::addWidgetStyle(QWidget *window, QPushButton *nazad, QPushButton
     styleDoubleSpin(o);
     styleDoubleSpin(p);
 
+}
+
+//Стиль виджета отчисления студента
+void metodClass::styleOthicslit(QWidget *window, QDateEdit *date, QLineEdit *line, QPushButton *btn, QPushButton *nazad)
+{
+    window->setGeometry(0,0,341,341);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки входа
+    styleButton(btn);
+
+    //Изменение стиля lineEdit
+    styleLineEdit(line);
+
+    //Изменение стиля DateEdit
+    styleDateEdit(date);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+}
+
+//Стиль виджета перевода студента
+void metodClass::stylePerevod(QWidget *window, QDateEdit *date, QComboBox *spec, QComboBox *formobuch, QComboBox *kurs, QComboBox *budget, QLineEdit *grupp,QLineEdit *line, QLineEdit *a, QLineEdit *b, QLineEdit *c, QLineEdit *d, QLineEdit *e, QPushButton *perevod, QPushButton *nazad)
+{
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопки
+    styleButton(perevod);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
+
+    //Изменение стиля lineEdit
+    styleLineEdit(line);
+    styleLineEdit(grupp);
+    styleLineEdit(a);
+    styleLineEdit(b);
+    styleLineEdit(c);
+    styleLineEdit(d);
+    styleLineEdit(e);
+
+    //Изменение стиля комбобокс
+    styleCombobox(spec);
+    styleCombobox(formobuch);
+    styleCombobox(kurs);
+    styleCombobox(budget);
+
+    //Изменение стиля dateEdit
+    styleDateEdit(date);
 }
 
 //Скрытие виджетов входа
