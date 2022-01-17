@@ -22,6 +22,13 @@
 #include <encryptionclass.h>
 #include <minidb.h>
 
+//Библиотеки для работы с PDF
+#include <QPrinter>
+#include <QPdfWriter>
+#include <QPainter>
+#include <QTextDocument>
+#include <QApplication>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -182,5 +189,10 @@ private slots:
     void on_NazadKNastroykam_5_clicked();
     void on_StudentButton_11_clicked();
     void on_lineEdit_25_textEdited(const QString &arg1);
+    void on_StudentButton_12_clicked();
+    void on_NazadIzNastroek_4_clicked();
+    void on_OneBtn_clicked();
+    void on_TwoBTN_clicked();
+    void on_ThreBtn_clicked();
 };
 #endif // MAINWINDOW_H

@@ -53,7 +53,7 @@ this->ui->Deystviya->hide();
 mtdcls->showDataWidget(this->ui->ShowData,this->ui->StudentButton, this->ui->StudentButton_2, this->ui->StudentButton_3, this->ui->NazadKNastroykam_2);
 
 //Задание стиля виджету действий
-mtdcls->deystviyaWidget(this->ui->Deystviya,this->ui->DeleteZapis, this->ui->Dobavit, this->ui->DobaviStroku, this->ui->StudentButton_8, this->ui->NazadKNastroykam_3, this->ui->StudentButton_9);
+mtdcls->deystviyaWidget(this->ui->Deystviya,this->ui->DeleteZapis, this->ui->Dobavit, this->ui->DobaviStroku, this->ui->StudentButton_8, this->ui->NazadKNastroykam_3, this->ui->StudentButton_9, this->ui->StudentButton_12);
 
 //Задание стиля виджету добавления
 mtdcls->addWidgetStyle(this->ui->AddStudent,this->ui->pushButton_7, this->ui->pushButton_8, this->ui->lineEdit, this->ui->lineEdit_10, this->ui->lineEdit_11, this->ui->lineEdit_2, this->ui->lineEdit_3, this->ui->lineEdit_4, this->ui->lineEdit_5, this->ui->lineEdit_6, this->ui->lineEdit_7, this->ui->lineEdit_8, this->ui->lineEdit_9, this->ui->comboBox, this->ui->comboBox_2, this->ui->comboBox_3, this->ui->comboBox_4, this->ui->comboBox_5, this->ui->comboBox_6, this->ui->comboBox_7, this->ui->comboBox_8, this->ui->comboBox_9, this->ui->comboBox_10, this->ui->comboBox_11, this->ui->comboBox_13, this->ui->dateEdit, this->ui->dateEdit_4, this->ui->doubleSpinBox, this->ui->doubleSpinBox_2);
@@ -75,6 +75,13 @@ this->ui->Perevod->hide();
 
 //Задание стиля виджету перевода
 mtdcls->stylePerevod(this->ui->Perevod, this->ui->dateEdit_6, this->ui->comboBox_12, this->ui->comboBox_14, this->ui->comboBox_15, this->ui->comboBox_16, this->ui->lineEdit_18, this->ui->lineEdit_19, this->ui->lineEdit_20, this->ui->lineEdit_21, this->ui->lineEdit_22, this->ui->lineEdit_23, this->ui->lineEdit_24, this->ui->StudentButton_11, this->ui->NazadKNastroykam_5);
+
+//Скрытие виджета о приказах
+this->ui->Prikazy->hide();
+
+//Задание стиля виджету приказов
+mtdcls->stylePrikazy(this->ui->Prikazy, this->ui->OneBtn, this->ui->TwoBTN, this->ui->ThreBtn, this->ui->NazadIzNastroek_4);
+
 }
 
 MainWindow::~MainWindow()
@@ -1324,8 +1331,10 @@ void MainWindow::on_DeleteZapis_clicked()
         model->setTable("ycheniki");
         model->select();
         model->removeRow(this->ui->tableView->currentIndex().row());
+
         //Обновление таблицы
         model->submitAll();
+
         //Отображение данных
         model->select();
         this->ui->tableView->setModel(model);
@@ -1342,8 +1351,10 @@ void MainWindow::on_DeleteZapis_clicked()
         model->setTable("gruppy");
         model->select();
         model->removeRow(this->ui->tableView->currentIndex().row());
+
         //Обновление таблицы
         model->submitAll();
+
         //Отображение данных
         model->select();
         this->ui->tableView->setModel(model);
@@ -1376,7 +1387,7 @@ void MainWindow::on_Dannye_2_clicked()
     this->ui->Deystviya->raise();
 
     //Центрирование виджета
-    this->ui->Deystviya->setGeometry((this->width()*0.5)-170.5,(this->height()*0.5)-120.5,341,241);
+    this->ui->Deystviya->setGeometry((this->width()*0.5)-170.5,(this->height()*0.5)-120.5,341,281);
 }
 
 //Отмена добавления
@@ -1433,8 +1444,10 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
         QString grodnenskaya = "Гродненская";
         QString minskaya = "Минская";
         QString mogilevskaya = "Могилевская";
+
         //Присваивание переменной выбранного значения
         QString oblast =ui->comboBox_9->itemText(index);
+
         //Брестская
         if(oblast == brestskaya)
         {
@@ -1463,6 +1476,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_10->addItem("Давид-Городок",19);
             ui->comboBox_10->addItem("Высокое",20);
             ui->comboBox_10->addItem("Коссово",21);
+
             //Районы
             ui->comboBox_11->addItem("",0);
             ui->comboBox_11->addItem("Барановичский",1);
@@ -1510,6 +1524,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_10->addItem("Верхнедвинск",17);
             ui->comboBox_10->addItem("Докшицы",18);
             ui->comboBox_10->addItem("Дисна",19);
+
             //Районы
             ui->comboBox_11->addItem("",0);
             ui->comboBox_11->addItem("Бешенковичский",1);
@@ -1562,6 +1577,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_10->addItem("Чечерск",16);
             ui->comboBox_10->addItem("Василевичи",17);
             ui->comboBox_10->addItem("Туров",18);
+
             //Районы
             ui->comboBox_11->addItem("",0);
             ui->comboBox_11->addItem("Брагинский",1);
@@ -1611,6 +1627,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_10->addItem("Ивье",13);
             ui->comboBox_10->addItem("Дятлово",14);
             ui->comboBox_10->addItem("Свислочь",15);
+
             //Районы
             ui->comboBox_11->addItem("",0);
             ui->comboBox_11->addItem("Берестовицкий",1);
@@ -1665,6 +1682,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_10->addItem("Копыль",23);
             ui->comboBox_10->addItem("Крупки",24);
             ui->comboBox_10->addItem("Мядель",25);
+
             //Районы
             ui->comboBox_11->addItem("",0);
             ui->comboBox_11->addItem("Березинский",1);
@@ -1723,6 +1741,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_10->addItem("Славгород",15);
             ui->comboBox_10->addItem("Круглое",16);
             ui->comboBox_10->addItem("Кличев",17);
+
             //Районы
             ui->comboBox_11->addItem("",0);
             ui->comboBox_11->addItem("Белыничский",1);
@@ -1949,6 +1968,7 @@ void MainWindow::on_StudentButton_10_clicked()
         model = new QSqlTableModel(this,sdb);
         model->setTable("ycheniki");
         model->select();
+
                 QString a1 = model->data(model->index(this->ui->tableView->currentIndex().row(), 1)).toString();
                 QString a2 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 2)).toString();
                 QString a3 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 3)).toString();
@@ -2028,6 +2048,7 @@ void MainWindow::on_StudentButton_8_clicked()
 
         //Выбираем таблицу для модели
         modelSpecialnost();
+
         //Специальности
         QSqlQuery query("SELECT Specialnost FROM specialnost", sdb);
         if(query.isActive())
@@ -2131,6 +2152,7 @@ void MainWindow::on_StudentButton_11_clicked()
         model = new QSqlTableModel(this,sdb);
         model->setTable("ycheniki");
         model->select();
+
                 QString a3 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 3)).toString();
                 QString a7 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 7)).toString();
                 QString a8 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 8)).toString();
@@ -2228,5 +2250,149 @@ void MainWindow::on_lineEdit_25_textEdited(const QString &arg1)
             //Указываем значение для поиска, в нашем случае это переменная arg1
             proxy_model->setFilterFixedString(arg1);
     }
+}
+
+//Открытие формы для формирования документа
+void MainWindow::on_StudentButton_12_clicked()
+{
+    if(tablica == 1)
+    {
+        this->ui->Deystviya->hide();
+
+        this->ui->Prikazy->show();
+
+        this->ui->Prikazy->raise();
+
+        //Центрирование виджета
+        mtdcls->centerWidget(this->width(), this->height(), this->ui->Prikazy);
+    }
+}
+
+//Назад к действиям
+void MainWindow::on_NazadIzNastroek_4_clicked()
+{
+    this->ui->Prikazy->hide();
+
+    this->ui->Deystviya->show();
+
+    this->ui->Deystviya->raise();
+}
+
+//Приказ об освобождении от занятий
+void MainWindow::on_OneBtn_clicked()
+{
+    /*
+    //Указываем имя или путь к файлу
+    QFile File("prikaz/1.txt");
+
+    //Открываем файл в режиме чтения
+    File.open(QIODevice::ReadOnly);
+
+    //Создаем входящий поток, из которого будут считываться данные, и связываем его с файлом
+    QTextStream in(&File);
+
+    //Считываем весь файл
+    QString text = in.readAll();
+
+    //Закрываем файл
+    File.close();
+
+    //Заменяем значения в тексте
+    text.replace(QString("ou"), QString("o"));
+
+    //Присваиваем текст из файла в переменную
+    QString html = text;
+
+    //Создаем файл из HTML
+    QTextDocument document;
+    document.setHtml(html);
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName("Готовые приказы/Приказ об освобождении от занятий.pdf");
+    document.print(&printer);
+    */
+}
+
+//Приказ об отчислении
+void MainWindow::on_TwoBTN_clicked()
+{
+    //Указываем имя или путь к файлу
+    QFile File("prikaz/2.txt");
+
+    //Открываем файл в режиме чтения
+    File.open(QIODevice::ReadOnly);
+
+    //Создаем входящий поток, из которого будут считываться данные, и связываем его с файлом
+    QTextStream in(&File);
+
+    //Считываем весь файл
+    QString text = in.readAll();
+
+    //Закрываем файл
+    File.close();
+
+    //Получение данных из колонок выделенной строки строки
+    model = new QSqlTableModel(this,sdb);
+    model->setTable("ycheniki");
+    model->select();
+
+            QString a10 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 10)).toString();
+            QString a11 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 11)).toString();
+            QString a12 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 12)).toString();
+
+
+    //Заменяем значения в тексте
+    text.replace(QString("XXXXXX"), this->ui->dateEdit_5->text());
+    text.replace(QString("XXXXX"), this->ui->lineEdit_17->text());
+    text.replace(QString("XXXX"), a10+" "+a11+" "+a12);
+
+    //Присваиваем текст из файла в переменную
+    QString html = text;
+
+    //Создаем файл из HTML
+    QTextDocument document;
+    document.setHtml(html);
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName("Готовые приказы/Приказ об отчислении.pdf");
+    document.print(&printer);
+
+    this->ui->Prikazy->hide();
+    this->ui->FillWindow->hide();
+}
+
+//Приказ о том что студент обучается в УО
+void MainWindow::on_ThreBtn_clicked()
+{
+    /*
+    //Указываем имя или путь к файлу
+    QFile File("prikaz/3.txt");
+
+    //Открываем файл в режиме чтения
+    File.open(QIODevice::ReadOnly);
+
+    //Создаем входящий поток, из которого будут считываться данные, и связываем его с файлом
+    QTextStream in(&File);
+
+    //Считываем весь файл
+    QString text = in.readAll();
+
+    //Закрываем файл
+    File.close();
+
+    //Заменяем значения в тексте
+    text.replace(QString("ou"), QString("o"));
+
+    //Присваиваем текст из файла в переменную
+    QString html = text;
+
+    //Создаем файл из HTML
+    QTextDocument document;
+    document.setHtml(html);
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName("Готовые приказы/Приказ о том что студент обучается в УО.pdf");
+    document.print(&printer);
+    */
 }
 

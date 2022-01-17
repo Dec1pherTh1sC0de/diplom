@@ -1996,7 +1996,7 @@
       <x>1040</x>
       <y>540</y>
       <width>341</width>
-      <height>241</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -2114,6 +2114,22 @@
      </property>
      <property name="text">
       <string>Отчислить</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="StudentButton_12">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>230</y>
+       <width>291</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Сформировать приказ</string>
      </property>
     </widget>
    </widget>
@@ -2682,6 +2698,101 @@
        <width>301</width>
        <height>25</height>
       </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Prikazy" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1850</x>
+      <y>270</y>
+      <width>341</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <widget class="QPushButton" name="OneBtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>291</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Об освобождении от занятий</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_65">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Приказы</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="TwoBTN">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>291</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Об отчислении</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="NazadIzNastroek_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>51</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ThreBtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>291</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>О том что студент обучается в УО</string>
      </property>
     </widget>
    </widget>

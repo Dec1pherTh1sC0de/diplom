@@ -298,7 +298,7 @@ void metodClass::showDataWidget(QWidget *window, QPushButton *stud, QPushButton 
 }
 
 //Метод стиля действий
-void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *createotch, QPushButton *nazad, QPushButton *d)
+void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton *addpust, QPushButton *del, QPushButton *createotch, QPushButton *nazad, QPushButton *d, QPushButton *e)
 {
     window->setGeometry(0,0,341,341);
 
@@ -310,6 +310,7 @@ void metodClass::deystviyaWidget(QWidget *window, QPushButton *add, QPushButton 
     styleButton(del);
     styleButton(createotch);
     styleButton(d);
+    styleButton(e);
 
     //Применение стиля кнопки назад
     styleTransparentButton(nazad, "icon/arrow-left.ico");
@@ -409,6 +410,22 @@ void metodClass::stylePerevod(QWidget *window, QDateEdit *date, QComboBox *spec,
 
     //Изменение стиля dateEdit
     styleDateEdit(date);
+}
+
+//Стиль виджета приказов
+void metodClass::stylePrikazy(QWidget *window, QPushButton *a, QPushButton *b, QPushButton *c, QPushButton *nazad)
+{
+    window->setGeometry(0,0,341,241);
+
+    window->setStyleSheet("background-color: #393E46; border-style: outset; border-width: 0px; border-radius: 10px;");
+
+    //Изменения стиля кнопок
+    styleButton(a);
+    styleButton(b);
+    styleButton(c);
+
+    //Применение стиля кнопки назад
+    styleTransparentButton(nazad, "icon/arrow-left.ico");
 }
 
 //Скрытие виджетов входа
