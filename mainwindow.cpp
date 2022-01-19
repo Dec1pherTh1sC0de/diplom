@@ -542,7 +542,6 @@ void MainWindow::on_RazvernutButton_clicked()
 //Блокировка рабочего окна
 void MainWindow::on_BlockFormButton_clicked()
 {
-
     //Заполнение окна
     this->ui->FillWindow->show();
     this->ui->FillWindow->setStyleSheet("background-color: #212121; border-style: outset; border-width: 0px; border-radius: 10px;");
@@ -556,7 +555,6 @@ void MainWindow::on_BlockFormButton_clicked()
 
     //Центрирование виджета
     mtdcls->centerWidget(this->width(),this->height(),this->ui->BlockWindow);
-
 }
 
 //Разблокировать окно
@@ -704,7 +702,6 @@ void MainWindow::on_EnterPinCodePushButton_3_clicked()
 
         //Отчистка поля пинкода
         this->ui->PinCodeLineEdit_3->clear();
-
     }
     else
     {
@@ -985,6 +982,22 @@ void MainWindow::on_EnterPushButton_3_clicked()
 //Разрешить редактирование таблицы
 void MainWindow::on_EnableRedaktion_clicked()
 {
+    if(tablica == 1)
+    {
+        //Обновление таблицы с данными
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("ycheniki");
+        model->select();
+        this->ui->tableView->setModel(model);
+    }
+    if(tablica == 2)
+    {
+        //Обновление таблицы с данными
+        model = new QSqlTableModel(this,sdb);
+        model->setTable("gruppy");
+        model->select();
+        this->ui->tableView->setModel(model);
+    }
     this->ui->tableView->setEditTriggers(QAbstractItemView::AllEditTriggers);
     this->ui->Nastroyki->hide();
     this->ui->FillWindow->hide();
@@ -993,6 +1006,58 @@ void MainWindow::on_EnableRedaktion_clicked()
 //Запретить редактирование таблицы
 void MainWindow::on_DisableRedaktion_2_clicked()
 {
+    if(tablica == 1)
+    {
+        //Отображение таблицы
+        QSqlQueryModel *model = new QSqlQueryModel;
+        model->setQuery("SELECT * FROM ycheniki");
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+        model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+        model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+        model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+        model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+        model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+        model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+        model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+        model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+        model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+        model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+        model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+        model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+        model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+        model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+        model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+        model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+        model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+        model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+        model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+        model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+        model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+        model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+        model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+        model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+        model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
+        ui->tableView->setModel(model);
+    }
+    if(tablica == 2)
+    {
+        //Отображение таблицы
+        QSqlQueryModel *model = new QSqlQueryModel;
+        //Делаем запрос
+        model->setQuery("SELECT * FROM gruppy");
+        //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+        model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
+        ui->tableView->setModel(model);
+    }
     this->ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->ui->Nastroyki->hide();
     this->ui->FillWindow->hide();
@@ -1035,9 +1100,38 @@ void MainWindow::on_StudentButton_clicked()
     if(a == "1")
     {
         //Отображение таблицы
-        model = new QSqlTableModel(this,sdb);
-        model->setTable("ycheniki");
-        model->select();
+        QSqlQueryModel *model = new QSqlQueryModel;
+        model->setQuery("SELECT * FROM ycheniki");
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+        model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+        model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+        model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+        model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+        model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+        model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+        model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+        model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+        model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+        model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+        model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+        model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+        model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+        model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+        model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+        model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+        model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+        model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+        model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+        model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+        model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+        model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+        model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+        model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+        model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
         ui->tableView->setModel(model);
 
         tablica = 1;
@@ -1056,9 +1150,16 @@ void MainWindow::on_StudentButton_2_clicked()
     if(a == "1")
     {
         //Отображение таблицы
-        model = new QSqlTableModel(this,sdb);
-        model->setTable("gruppy");
-        model->select();
+        QSqlQueryModel *model = new QSqlQueryModel;
+        //Делаем запрос
+        model->setQuery("SELECT * FROM gruppy");
+        //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+        model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
         ui->tableView->setModel(model);
 
         tablica = 2;
@@ -1072,11 +1173,6 @@ void MainWindow::on_StudentButton_3_clicked()
     QString a =  mindb->database(this->ui->BDNameEdit,this->ui->HostEdit,this->ui->UserNameEdit,this->ui->PasswEdit);
     if(a == "1")
     {
-        //Отображение таблицы
-        model = new QSqlTableModel(this,sdb);
-        model->setTable("ycheniki");
-        model->select();
-
         //Переменные принимающие значения из запросов
         QString girl;
         QString boy;
@@ -1133,21 +1229,22 @@ void MainWindow::on_StudentButton_3_clicked()
             budget = f_query.value(0).toString();
         }
 
-        //Отображение таблицы
-        model = new QSqlTableModel(this,sdb);
-        model->setTable("kontengent");
-        model->select();
-
         //Запись данных о контингенте
         mindb->addKontengent(girl, boy, vsego, platniki, cheleviki, budget);
-
-
     }
 
     //Отображение таблицы
-    model = new QSqlTableModel(this,sdb);
-    model->setTable("kontengent");
-    model->select();
+    QSqlQueryModel *model = new QSqlQueryModel;
+    //Делаем запрос
+    model->setQuery("SELECT * FROM kontengent");
+    //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+    model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Всего девушек"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Всего парней"));
+    model->setHeaderData(3, Qt::Horizontal, tr("Всего"));
+    model->setHeaderData(4, Qt::Horizontal, tr("Платники"));
+    model->setHeaderData(5, Qt::Horizontal, tr("Целевики"));
+    model->setHeaderData(6, Qt::Horizontal, tr("Бюджетники"));
     ui->tableView->setModel(model);
 
     tablica = 3;
@@ -1335,9 +1432,40 @@ void MainWindow::on_DeleteZapis_clicked()
         //Обновление таблицы
         model->submitAll();
 
-        //Отображение данных
-        model->select();
-        this->ui->tableView->setModel(model);
+        //Отображение таблицы
+        QSqlQueryModel *model = new QSqlQueryModel;
+        model->setQuery("SELECT * FROM ycheniki");
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+        model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+        model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+        model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+        model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+        model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+        model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+        model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+        model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+        model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+        model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+        model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+        model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+        model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+        model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+        model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+        model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+        model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+        model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+        model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+        model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+        model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+        model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+        model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+        model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+        model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
+        ui->tableView->setModel(model);
 
         //Назад к программе
         this->ui->Deystviya->hide();
@@ -1355,9 +1483,18 @@ void MainWindow::on_DeleteZapis_clicked()
         //Обновление таблицы
         model->submitAll();
 
-        //Отображение данных
-        model->select();
-        this->ui->tableView->setModel(model);
+        //Отображение таблицы
+        QSqlQueryModel *model = new QSqlQueryModel;
+        //Делаем запрос
+        model->setQuery("SELECT * FROM gruppy");
+        //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+        model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
+        ui->tableView->setModel(model);
 
         //Назад к программе
         this->ui->Deystviya->hide();
@@ -1428,9 +1565,38 @@ void MainWindow::on_pushButton_8_clicked()
         this->ui->comboBox_13->clear();
 
     //Отображение таблицы
-    model = new QSqlTableModel(this,sdb);
-    model->setTable("ycheniki");
-    model->select();
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery("SELECT * FROM ycheniki");
+    model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+    model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+    model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+    model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+    model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+    model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+    model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+    model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+    model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+    model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+    model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+    model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+    model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+    model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+    model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+    model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+    model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+    model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+    model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+    model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+    model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+    model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+    model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+    model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+    model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+    model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+    model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+    model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
     ui->tableView->setModel(model);
 }
 
@@ -1498,6 +1664,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_11->addItem("Пружанский",17);
             ui->comboBox_11->addItem("Столинский",18);
         }
+
         //Витебская
         if(oblast == vitebskaya)
         {
@@ -1552,6 +1719,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_11->addItem("Шарковщинский",23);
             ui->comboBox_11->addItem("Шумилинский",24);
         }
+
         //Гомельская
         if(oblast == gomelskaya)
         {
@@ -1605,6 +1773,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_11->addItem("Хойникский",23);
             ui->comboBox_11->addItem("Чечерский",24);
         }
+
         //Гродненская
         if(oblast == grodnenskaya)
         {
@@ -1650,6 +1819,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_11->addItem("Сморгонский",18);
             ui->comboBox_11->addItem("Щучинский",19);
         }
+
         //Минская
         if(oblast == minskaya)
         {
@@ -1717,6 +1887,7 @@ void MainWindow::on_comboBox_9_currentIndexChanged(int index)
             ui->comboBox_11->addItem("Узденский",30);
             ui->comboBox_11->addItem("Червенский",31);
         }
+
         //Могилевская
         if(oblast == mogilevskaya)
         {
@@ -1818,9 +1989,38 @@ void MainWindow::on_pushButton_7_clicked()
         this->ui->HorizontalWidget->show();
 
         //Отображение таблицы
-        model = new QSqlTableModel(this,sdb);
-        model->setTable("ycheniki");
-        model->select();
+        QSqlQueryModel *model = new QSqlQueryModel;
+        model->setQuery("SELECT * FROM ycheniki");
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+        model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+        model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+        model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+        model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+        model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+        model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+        model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+        model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+        model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+        model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+        model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+        model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+        model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+        model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+        model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+        model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+        model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+        model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+        model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+        model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+        model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+        model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+        model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+        model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+        model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
         ui->tableView->setModel(model);
     }
 }
@@ -1843,9 +2043,38 @@ void MainWindow::on_DobaviStroku_clicked()
             this->ui->FillWindow->hide();
 
             //Отображение таблицы
-            model = new QSqlTableModel(this,sdb);
-            model->setTable("ycheniki");
-            model->select();
+            QSqlQueryModel *model = new QSqlQueryModel;
+            model->setQuery("SELECT * FROM ycheniki");
+            model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+            model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+            model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+            model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+            model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+            model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+            model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+            model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+            model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+            model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+            model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+            model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+            model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+            model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+            model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+            model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+            model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+            model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+            model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+            model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+            model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+            model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+            model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+            model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+            model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+            model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+            model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+            model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+            model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+            model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
             ui->tableView->setModel(model);
         }
     }
@@ -1865,9 +2094,16 @@ void MainWindow::on_DobaviStroku_clicked()
             this->ui->FillWindow->hide();
 
             //Отображение таблицы
-            model = new QSqlTableModel(this,sdb);
-            model->setTable("gruppy");
-            model->select();
+            QSqlQueryModel *model = new QSqlQueryModel;
+            //Делаем запрос
+            model->setQuery("SELECT * FROM gruppy");
+            //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+            model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+            model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+            model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+            model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+            model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+            model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
             ui->tableView->setModel(model);
         }
     }
@@ -1889,9 +2125,16 @@ void MainWindow::on_pushButton_9_clicked()
     this->ui->lineEdit_16->clear();
 
     //Отображение таблицы
-    model = new QSqlTableModel(this,sdb);
-    model->setTable("gruppy");
-    model->select();
+    QSqlQueryModel *model = new QSqlQueryModel;
+    //Делаем запрос
+    model->setQuery("SELECT * FROM gruppy");
+    //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+    model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+    model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+    model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+    model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
     ui->tableView->setModel(model);
 }
 
@@ -1917,9 +2160,16 @@ void MainWindow::on_pushButton_10_clicked()
         this->ui->lineEdit_16->clear();
 
         //Отображение таблицы
-        model = new QSqlTableModel(this,sdb);
-        model->setTable("gruppy");
-        model->select();
+        QSqlQueryModel *model = new QSqlQueryModel;
+        //Делаем запрос
+        model->setQuery("SELECT * FROM gruppy");
+        //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+        model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
         ui->tableView->setModel(model);
     }
 }
@@ -2009,8 +2259,39 @@ void MainWindow::on_StudentButton_10_clicked()
                 //Вставка данных
                 mindb->addData(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26 + " Номер приказа:" + this->ui->lineEdit_17->text(), "Да", a28, this->ui->dateEdit_5->text());
 
-                //Отображение данных
-                model->select();
+                //Отображение таблицы
+                QSqlQueryModel *model = new QSqlQueryModel;
+                model->setQuery("SELECT * FROM ycheniki");
+                model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+                model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+                model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+                model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+                model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+                model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+                model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+                model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+                model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+                model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+                model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+                model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+                model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+                model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+                model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+                model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+                model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+                model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+                model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+                model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+                model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+                model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+                model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+                model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+                model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+                model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+                model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+                model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+                model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+                model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
                 this->ui->tableView->setModel(model);
 
                 //Отчистка полей
@@ -2190,9 +2471,40 @@ void MainWindow::on_StudentButton_11_clicked()
                 //Вставка данных
                 mindb->addData(this->ui->comboBox_12->currentText(),this->ui->comboBox_14->currentText(),a3,this->ui->comboBox_15->currentText(),this->ui->lineEdit_19->text(),this->ui->comboBox_16->currentText(),a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26 + "  |Номер приказа:" + this->ui->lineEdit_18->text() + "|" + "  Дата перевода:" + this->ui->dateEdit_6->text() + "|", a27, a28, a29);
 
-                //Отображение данных
-                model->select();
-                this->ui->tableView->setModel(model);
+                //Отображение таблицы
+                QSqlQueryModel *model = new QSqlQueryModel;
+                model->setQuery("SELECT * FROM ycheniki");
+                model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+                model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+                model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+                model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+                model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+                model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+                model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+                model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+                model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+                model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+                model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+                model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+                model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+                model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+                model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+                model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+                model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+                model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+                model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+                model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+                model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+                model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+                model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+                model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+                model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+                model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+                model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+                model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+                model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+                model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
+                ui->tableView->setModel(model);
 
                 //Отчистка полей
                 this->ui->lineEdit_18->clear();
@@ -2220,11 +2532,41 @@ void MainWindow::on_lineEdit_25_textEdited(const QString &arg1)
     //Поиск по ученикам
     if(tablica == 1)
     {
-        //Подключение к БД
-            model = new QSqlTableModel(this,sdb);
-            //Указываем таблицу
-            model->setTable("ycheniki");
-            model->select();
+        //Отображение таблицы
+        QSqlQueryModel *model = new QSqlQueryModel;
+        model->setQuery("SELECT * FROM ycheniki");
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Специальность"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Форма обучения"));
+        model->setHeaderData(3, Qt::Horizontal, tr("ОБО/ОСО"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Курс"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер группы"));
+        model->setHeaderData(6, Qt::Horizontal, tr("Бюджет"));
+        model->setHeaderData(7, Qt::Horizontal, tr("Адрес общежития"));
+        model->setHeaderData(8, Qt::Horizontal, tr("Пол"));
+        model->setHeaderData(9, Qt::Horizontal, tr("Фамилия"));
+        model->setHeaderData(10, Qt::Horizontal, tr("Имя"));
+        model->setHeaderData(11, Qt::Horizontal, tr("Отчество"));
+        model->setHeaderData(12, Qt::Horizontal, tr("Дата рождения"));
+        model->setHeaderData(13, Qt::Horizontal, tr("Паспортные данные"));
+        model->setHeaderData(14, Qt::Horizontal, tr("Средний бал после школы"));
+        model->setHeaderData(15, Qt::Horizontal, tr("Ин.яз"));
+        model->setHeaderData(16, Qt::Horizontal, tr("Мобильный телефон"));
+        model->setHeaderData(17, Qt::Horizontal, tr("Область"));
+        model->setHeaderData(18, Qt::Horizontal, tr("Город"));
+        model->setHeaderData(19, Qt::Horizontal, tr("Район"));
+        model->setHeaderData(20, Qt::Horizontal, tr("Адрес проживания"));
+        model->setHeaderData(21, Qt::Horizontal, tr("Средний бал"));
+        model->setHeaderData(22, Qt::Horizontal, tr("Целевик"));
+        model->setHeaderData(23, Qt::Horizontal, tr("Родители"));
+        model->setHeaderData(24, Qt::Horizontal, tr("Место работы"));
+        model->setHeaderData(25, Qt::Horizontal, tr("Льготы"));
+        model->setHeaderData(26, Qt::Horizontal, tr("Примечание"));
+        model->setHeaderData(27, Qt::Horizontal, tr("Отчислен"));
+        model->setHeaderData(28, Qt::Horizontal, tr("Дата зачисления"));
+        model->setHeaderData(29, Qt::Horizontal, tr("Дата отчисления"));
+        ui->tableView->setModel(model);
+
             QSortFilterProxyModel *proxy_model = new QSortFilterProxyModel();
             ui->tableView->setModel(proxy_model);
             proxy_model->setSourceModel(model);
@@ -2237,11 +2579,19 @@ void MainWindow::on_lineEdit_25_textEdited(const QString &arg1)
     //Поиск по группам
     if(tablica == 2)
     {
-        //Подключение к БД
-            model = new QSqlTableModel(this,sdb);
-            //Указываем таблицу
-            model->setTable("gruppy");
-            model->select();
+        //Отображение таблицы
+        QSqlQueryModel *model = new QSqlQueryModel;
+        //Делаем запрос
+        model->setQuery("SELECT * FROM gruppy");
+        //Ставим имена хедерам вместо тех которые загружаются из таблицы БД
+        model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, tr("Группа"));
+        model->setHeaderData(2, Qt::Horizontal, tr("Куратор"));
+        model->setHeaderData(3, Qt::Horizontal, tr("Номер куратора"));
+        model->setHeaderData(4, Qt::Horizontal, tr("Староста"));
+        model->setHeaderData(5, Qt::Horizontal, tr("Номер старосты"));
+        ui->tableView->setModel(model);
+
             QSortFilterProxyModel *proxy_model = new QSortFilterProxyModel();
             ui->tableView->setModel(proxy_model);
             proxy_model->setSourceModel(model);
@@ -2336,10 +2686,9 @@ void MainWindow::on_TwoBTN_clicked()
     model->setTable("ycheniki");
     model->select();
 
-            QString a10 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 10)).toString();
-            QString a11 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 11)).toString();
-            QString a12 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 12)).toString();
-
+    QString a10 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 10)).toString();
+    QString a11 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 11)).toString();
+    QString a12 = model->data(this->model->index(this->ui->tableView->currentIndex().row(), 12)).toString();
 
     //Заменяем значения в тексте
     text.replace(QString("XXXXXX"), this->ui->dateEdit_5->text());
